@@ -1,0 +1,797 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<form xmlns="http://www.intellij.com/uidesigner/form/" version="1" bind-to-class="View.ProductGUI">
+  <grid id="27dc6" binding="panelStaff" layout-manager="GridLayoutManager" row-count="2" column-count="3" same-size-horizontally="false" same-size-vertically="false" hgap="-1" vgap="-1">
+    <margin top="0" left="0" bottom="0" right="0"/>
+    <constraints>
+      <xy x="20" y="20" width="1792" height="2068"/>
+    </constraints>
+    <properties>
+      <maximumSize width="400" height="350"/>
+      <minimumSize width="400" height="300"/>
+      <preferredSize width="1100" height="585"/>
+    </properties>
+    <border type="none"/>
+    <children>
+      <grid id="1558b" layout-manager="GridLayoutManager" row-count="3" column-count="2" same-size-horizontally="false" same-size-vertically="false" hgap="-1" vgap="-1">
+        <margin top="0" left="0" bottom="0" right="0"/>
+        <constraints>
+          <grid row="0" column="0" row-span="1" col-span="1" vsize-policy="3" hsize-policy="3" anchor="0" fill="3" indent="0" use-parent-layout="false"/>
+        </constraints>
+        <properties/>
+        <border type="none"/>
+        <children>
+          <tabbedpane id="9402c" binding="tblManagement">
+            <constraints>
+              <grid row="0" column="0" row-span="1" col-span="2" vsize-policy="3" hsize-policy="7" anchor="9" fill="0" indent="2" use-parent-layout="false">
+                <preferred-size width="2500" height="850"/>
+              </grid>
+            </constraints>
+            <properties>
+              <font name="Serif" size="14" style="1"/>
+            </properties>
+            <border type="none"/>
+            <children>
+              <grid id="4b876" binding="panelProductOrder" layout-manager="GridLayoutManager" row-count="2" column-count="3" same-size-horizontally="false" same-size-vertically="false" hgap="-1" vgap="-1">
+                <margin top="0" left="0" bottom="0" right="0"/>
+                <constraints>
+                  <tabbedpane title="Coffee Shop"/>
+                </constraints>
+                <properties>
+                  <preferredSize width="343" height="800"/>
+                </properties>
+                <border type="none"/>
+                <children>
+                  <grid id="4c1a2" binding="panelOrder" layout-manager="GridLayoutManager" row-count="3" column-count="1" same-size-horizontally="false" same-size-vertically="false" hgap="-1" vgap="-1">
+                    <margin top="0" left="0" bottom="0" right="0"/>
+                    <constraints>
+                      <grid row="0" column="2" row-span="2" col-span="1" vsize-policy="3" hsize-policy="3" anchor="0" fill="3" indent="0" use-parent-layout="false">
+                        <preferred-size width="150" height="-1"/>
+                      </grid>
+                    </constraints>
+                    <properties/>
+                    <border type="none"/>
+                    <children>
+                      <grid id="a5c84" layout-manager="GridLayoutManager" row-count="3" column-count="1" same-size-horizontally="false" same-size-vertically="false" hgap="-1" vgap="-1">
+                        <margin top="0" left="0" bottom="0" right="0"/>
+                        <constraints>
+                          <grid row="2" column="0" row-span="1" col-span="1" vsize-policy="3" hsize-policy="3" anchor="0" fill="3" indent="0" use-parent-layout="false">
+                            <preferred-size width="150" height="500"/>
+                          </grid>
+                        </constraints>
+                        <properties/>
+                        <border type="none"/>
+                        <children>
+                          <grid id="aabcf" layout-manager="GridLayoutManager" row-count="3" column-count="2" same-size-horizontally="false" same-size-vertically="false" hgap="-1" vgap="-1">
+                            <margin top="0" left="0" bottom="0" right="0"/>
+                            <constraints>
+                              <grid row="1" column="0" row-span="1" col-span="1" vsize-policy="3" hsize-policy="3" anchor="0" fill="3" indent="0" use-parent-layout="false"/>
+                            </constraints>
+                            <properties/>
+                            <border type="none"/>
+                            <children>
+                              <component id="71f18" class="javax.swing.JLabel">
+                                <constraints>
+                                  <grid row="0" column="0" row-span="1" col-span="1" vsize-policy="0" hsize-policy="0" anchor="8" fill="0" indent="0" use-parent-layout="false"/>
+                                </constraints>
+                                <properties>
+                                  <font name="Times New Roman" size="14" style="1"/>
+                                  <text value="VAT (10 %)"/>
+                                </properties>
+                              </component>
+                              <component id="4f870" class="javax.swing.JLabel">
+                                <constraints>
+                                  <grid row="1" column="0" row-span="1" col-span="1" vsize-policy="0" hsize-policy="0" anchor="8" fill="0" indent="0" use-parent-layout="false"/>
+                                </constraints>
+                                <properties>
+                                  <font name="Times New Roman" size="16" style="1"/>
+                                  <text value="Subtotal"/>
+                                </properties>
+                              </component>
+                              <component id="984a8" class="javax.swing.JLabel">
+                                <constraints>
+                                  <grid row="2" column="0" row-span="1" col-span="1" vsize-policy="0" hsize-policy="0" anchor="8" fill="0" indent="0" use-parent-layout="false"/>
+                                </constraints>
+                                <properties>
+                                  <font name="Times New Roman" size="18" style="1"/>
+                                  <text value="Total"/>
+                                </properties>
+                              </component>
+                              <component id="56b61" class="javax.swing.JTextArea" binding="txtSubtotal">
+                                <constraints>
+                                  <grid row="1" column="1" row-span="1" col-span="1" vsize-policy="6" hsize-policy="6" anchor="0" fill="3" indent="0" use-parent-layout="false">
+                                    <preferred-size width="100" height="25"/>
+                                  </grid>
+                                </constraints>
+                                <properties>
+                                  <disabledTextColor color="-16777216"/>
+                                  <enabled value="false"/>
+                                  <font name="Times New Roman" size="16" style="0"/>
+                                  <margin top="2" left="0" bottom="0" right="0"/>
+                                  <text value="0"/>
+                                </properties>
+                              </component>
+                              <component id="fe198" class="javax.swing.JTextArea" binding="txtTotal">
+                                <constraints>
+                                  <grid row="2" column="1" row-span="1" col-span="1" vsize-policy="6" hsize-policy="6" anchor="0" fill="3" indent="0" use-parent-layout="false">
+                                    <preferred-size width="100" height="25"/>
+                                  </grid>
+                                </constraints>
+                                <properties>
+                                  <disabledTextColor color="-16777216"/>
+                                  <enabled value="false"/>
+                                  <font name="Times New Roman" size="18" style="0"/>
+                                  <margin top="2" left="0" bottom="0" right="0"/>
+                                  <text value="0"/>
+                                </properties>
+                              </component>
+                              <component id="dc4a6" class="javax.swing.JTextArea" binding="txtVAT">
+                                <constraints>
+                                  <grid row="0" column="1" row-span="1" col-span="1" vsize-policy="6" hsize-policy="6" anchor="0" fill="3" indent="0" use-parent-layout="false">
+                                    <preferred-size width="100" height="25"/>
+                                  </grid>
+                                </constraints>
+                                <properties>
+                                  <disabledTextColor color="-16777216"/>
+                                  <enabled value="false"/>
+                                  <font name="Times New Roman" size="16" style="0"/>
+                                  <margin top="2" left="0" bottom="0" right="0"/>
+                                  <text value="0"/>
+                                </properties>
+                              </component>
+                            </children>
+                          </grid>
+                          <grid id="76e8a" layout-manager="GridLayoutManager" row-count="1" column-count="2" same-size-horizontally="false" same-size-vertically="false" hgap="-1" vgap="-1">
+                            <margin top="0" left="0" bottom="0" right="0"/>
+                            <constraints>
+                              <grid row="2" column="0" row-span="1" col-span="1" vsize-policy="3" hsize-policy="3" anchor="0" fill="3" indent="0" use-parent-layout="false"/>
+                            </constraints>
+                            <properties/>
+                            <border type="none"/>
+                            <children>
+                              <component id="b0790" class="javax.swing.JButton" binding="btnSaveOrder">
+                                <constraints>
+                                  <grid row="0" column="0" row-span="1" col-span="1" vsize-policy="0" hsize-policy="3" anchor="0" fill="1" indent="0" use-parent-layout="false"/>
+                                </constraints>
+                                <properties>
+                                  <background color="-16340559"/>
+                                  <font name="Georgia" size="13" style="0"/>
+                                  <foreground color="-1"/>
+                                  <text value="Save"/>
+                                </properties>
+                              </component>
+                              <component id="de1ea" class="javax.swing.JButton" binding="btnCancelOrder">
+                                <constraints>
+                                  <grid row="0" column="1" row-span="1" col-span="1" vsize-policy="0" hsize-policy="3" anchor="0" fill="1" indent="0" use-parent-layout="false"/>
+                                </constraints>
+                                <properties>
+                                  <background color="-16340559"/>
+                                  <font name="Georgia" size="13" style="0"/>
+                                  <foreground color="-1"/>
+                                  <text value="Cancel"/>
+                                </properties>
+                              </component>
+                            </children>
+                          </grid>
+                          <scrollpane id="3451a">
+                            <constraints>
+                              <grid row="0" column="0" row-span="1" col-span="1" vsize-policy="7" hsize-policy="7" anchor="0" fill="3" indent="0" use-parent-layout="false"/>
+                            </constraints>
+                            <properties/>
+                            <border type="none"/>
+                            <children>
+                              <component id="6494a" class="javax.swing.JTable" binding="tbOrder">
+                                <constraints/>
+                                <properties>
+                                  <focusable value="true"/>
+                                  <font name="Century Schoolbook" size="15" style="0"/>
+                                </properties>
+                              </component>
+                            </children>
+                          </scrollpane>
+                        </children>
+                      </grid>
+                      <component id="32a51" class="javax.swing.JTextField" binding="txtDay">
+                        <constraints>
+                          <grid row="1" column="0" row-span="1" col-span="1" vsize-policy="0" hsize-policy="6" anchor="8" fill="1" indent="0" use-parent-layout="false">
+                            <preferred-size width="300" height="-1"/>
+                          </grid>
+                        </constraints>
+                        <properties>
+                          <background color="-1"/>
+                          <disabledTextColor color="-1"/>
+                          <editable value="false"/>
+                          <font name="Century Schoolbook" size="13" style="0"/>
+                          <text value="2023-04-12 12:00:49"/>
+                        </properties>
+                      </component>
+                      <hspacer id="b3a92">
+                        <constraints>
+                          <grid row="0" column="0" row-span="1" col-span="1" vsize-policy="1" hsize-policy="6" anchor="0" fill="1" indent="0" use-parent-layout="false"/>
+                        </constraints>
+                      </hspacer>
+                    </children>
+                  </grid>
+                  <component id="5cd2d" class="javax.swing.JButton">
+                    <constraints>
+                      <grid row="0" column="1" row-span="1" col-span="1" vsize-policy="0" hsize-policy="3" anchor="0" fill="1" indent="0" use-parent-layout="false"/>
+                    </constraints>
+                    <properties>
+                      <background color="-16340559"/>
+                      <font name="Georgia" size="12" style="0"/>
+                      <foreground color="-1"/>
+                      <text value="Search"/>
+                    </properties>
+                  </component>
+                  <component id="89130" class="javax.swing.JTextField">
+                    <constraints>
+                      <grid row="0" column="0" row-span="1" col-span="1" vsize-policy="0" hsize-policy="6" anchor="8" fill="3" indent="1" use-parent-layout="false">
+                        <preferred-size width="50" height="25"/>
+                        <maximum-size width="-1" height="25"/>
+                      </grid>
+                    </constraints>
+                    <properties>
+                      <font name="Georgia" size="14" style="0"/>
+                      <margin top="2" left="6" bottom="2" right="6"/>
+                      <text value=""/>
+                    </properties>
+                  </component>
+                  <scrollpane id="aa093" binding="productScrollPanel" custom-create="true">
+                    <constraints>
+                      <grid row="1" column="0" row-span="1" col-span="2" vsize-policy="7" hsize-policy="7" anchor="0" fill="3" indent="0" use-parent-layout="false"/>
+                    </constraints>
+                    <properties/>
+                    <border type="none"/>
+                    <children/>
+                  </scrollpane>
+                </children>
+              </grid>
+              <grid id="7ea01" binding="panelProduct" layout-manager="GridLayoutManager" row-count="1" column-count="1" same-size-horizontally="false" same-size-vertically="false" hgap="-1" vgap="-1">
+                <margin top="0" left="0" bottom="0" right="0"/>
+                <constraints>
+                  <tabbedpane title="Product"/>
+                </constraints>
+                <properties>
+                  <background color="-1184275"/>
+                </properties>
+                <border type="none"/>
+                <children>
+                  <grid id="2fc28" layout-manager="GridLayoutManager" row-count="12" column-count="4" same-size-horizontally="false" same-size-vertically="false" hgap="-1" vgap="-1">
+                    <margin top="0" left="0" bottom="0" right="0"/>
+                    <constraints>
+                      <grid row="0" column="0" row-span="1" col-span="1" vsize-policy="3" hsize-policy="3" anchor="0" fill="3" indent="0" use-parent-layout="false"/>
+                    </constraints>
+                    <properties>
+                      <background color="-1"/>
+                    </properties>
+                    <border type="none"/>
+                    <children>
+                      <component id="f53f0" class="javax.swing.JLabel">
+                        <constraints>
+                          <grid row="3" column="0" row-span="1" col-span="2" vsize-policy="0" hsize-policy="0" anchor="8" fill="0" indent="2" use-parent-layout="false"/>
+                        </constraints>
+                        <properties>
+                          <font name="Georgia" size="12" style="1"/>
+                          <text value=" Product *"/>
+                        </properties>
+                      </component>
+                      <component id="cbdff" class="javax.swing.JTextField" binding="txtProductName">
+                        <constraints>
+                          <grid row="4" column="0" row-span="1" col-span="2" vsize-policy="0" hsize-policy="6" anchor="8" fill="1" indent="2" use-parent-layout="false">
+                            <preferred-size width="120" height="25"/>
+                          </grid>
+                        </constraints>
+                        <properties>
+                          <doubleBuffered value="false"/>
+                          <font name="Georgia" size="12" style="0"/>
+                          <margin top="2" left="6" bottom="2" right="6"/>
+                          <text value=""/>
+                        </properties>
+                      </component>
+                      <component id="ceb4f" class="javax.swing.JLabel">
+                        <constraints>
+                          <grid row="0" column="0" row-span="1" col-span="2" vsize-policy="0" hsize-policy="0" anchor="8" fill="0" indent="2" use-parent-layout="false"/>
+                        </constraints>
+                        <properties>
+                          <font name="Georgia" size="12" style="1"/>
+                          <text value=" ID *"/>
+                        </properties>
+                      </component>
+                      <grid id="71614" layout-manager="GridLayoutManager" row-count="2" column-count="3" same-size-horizontally="false" same-size-vertically="false" hgap="-1" vgap="-1">
+                        <margin top="0" left="0" bottom="0" right="0"/>
+                        <constraints>
+                          <grid row="0" column="3" row-span="12" col-span="1" vsize-policy="3" hsize-policy="3" anchor="0" fill="3" indent="0" use-parent-layout="false"/>
+                        </constraints>
+                        <properties>
+                          <background color="-1"/>
+                        </properties>
+                        <border type="none"/>
+                        <children>
+                          <component id="eeb6b" class="javax.swing.JTextField">
+                            <constraints>
+                              <grid row="0" column="0" row-span="1" col-span="1" vsize-policy="0" hsize-policy="6" anchor="8" fill="3" indent="0" use-parent-layout="false">
+                                <preferred-size width="50" height="25"/>
+                                <maximum-size width="-1" height="25"/>
+                              </grid>
+                            </constraints>
+                            <properties>
+                              <font name="Georgia" size="14" style="0"/>
+                              <margin top="2" left="6" bottom="2" right="6"/>
+                              <text value=""/>
+                            </properties>
+                          </component>
+                          <component id="a8675" class="javax.swing.JButton" binding="btnSearch">
+                            <constraints>
+                              <grid row="0" column="1" row-span="1" col-span="1" vsize-policy="0" hsize-policy="3" anchor="0" fill="1" indent="0" use-parent-layout="false"/>
+                            </constraints>
+                            <properties>
+                              <background color="-16340559"/>
+                              <font name="Georgia" size="12" style="0"/>
+                              <foreground color="-1"/>
+                              <text value="Search"/>
+                            </properties>
+                          </component>
+                          <scrollpane id="e8ea6">
+                            <constraints>
+                              <grid row="1" column="0" row-span="1" col-span="2" vsize-policy="7" hsize-policy="7" anchor="0" fill="3" indent="0" use-parent-layout="false">
+                                <preferred-size width="800" height="500"/>
+                                <maximum-size width="1000" height="500"/>
+                              </grid>
+                            </constraints>
+                            <properties/>
+                            <border type="none"/>
+                            <children>
+                              <component id="3fdb7" class="javax.swing.JTable" binding="tbProduct">
+                                <constraints/>
+                                <properties>
+                                  <font name="Georgia" size="14" style="0"/>
+                                  <preferredScrollableViewportSize width="1000" height="400"/>
+                                </properties>
+                              </component>
+                            </children>
+                          </scrollpane>
+                          <grid id="ca360" layout-manager="GridLayoutManager" row-count="1" column-count="1" same-size-horizontally="false" same-size-vertically="false" hgap="-1" vgap="-1">
+                            <margin top="0" left="0" bottom="0" right="0"/>
+                            <constraints>
+                              <grid row="0" column="2" row-span="2" col-span="1" vsize-policy="3" hsize-policy="3" anchor="0" fill="3" indent="0" use-parent-layout="false"/>
+                            </constraints>
+                            <properties>
+                              <background color="-1"/>
+                            </properties>
+                            <border type="empty"/>
+                            <children/>
+                          </grid>
+                        </children>
+                      </grid>
+                      <component id="6c5e" class="javax.swing.JLabel">
+                        <constraints>
+                          <grid row="6" column="0" row-span="1" col-span="3" vsize-policy="0" hsize-policy="0" anchor="8" fill="0" indent="2" use-parent-layout="false"/>
+                        </constraints>
+                        <properties>
+                          <font name="Georgia" size="12" style="1"/>
+                          <text value=" Ingredient *"/>
+                        </properties>
+                      </component>
+                      <component id="128fc" class="javax.swing.JTextField" binding="txtProductIngredient">
+                        <constraints>
+                          <grid row="7" column="0" row-span="1" col-span="2" vsize-policy="0" hsize-policy="6" anchor="8" fill="1" indent="2" use-parent-layout="false">
+                            <preferred-size width="120" height="25"/>
+                          </grid>
+                        </constraints>
+                        <properties>
+                          <doubleBuffered value="false"/>
+                          <font name="Georgia" size="12" style="0"/>
+                          <margin top="2" left="6" bottom="2" right="6"/>
+                        </properties>
+                      </component>
+                      <component id="2b532" class="javax.swing.JLabel">
+                        <constraints>
+                          <grid row="9" column="0" row-span="1" col-span="1" vsize-policy="0" hsize-policy="0" anchor="8" fill="0" indent="2" use-parent-layout="false"/>
+                        </constraints>
+                        <properties>
+                          <font name="Georgia" size="12" style="1"/>
+                          <text value=" Price *"/>
+                        </properties>
+                      </component>
+                      <grid id="41567" layout-manager="GridLayoutManager" row-count="5" column-count="2" same-size-horizontally="false" same-size-vertically="false" hgap="-1" vgap="-1">
+                        <margin top="0" left="0" bottom="0" right="0"/>
+                        <constraints>
+                          <grid row="10" column="0" row-span="1" col-span="2" vsize-policy="3" hsize-policy="3" anchor="0" fill="3" indent="0" use-parent-layout="false"/>
+                        </constraints>
+                        <properties>
+                          <background color="-1"/>
+                          <visible value="true"/>
+                        </properties>
+                        <border type="empty"/>
+                        <children>
+                          <component id="9590a" class="javax.swing.JTextField" binding="txtProductPrice">
+                            <constraints>
+                              <grid row="0" column="0" row-span="1" col-span="1" vsize-policy="0" hsize-policy="6" anchor="8" fill="1" indent="2" use-parent-layout="false">
+                                <preferred-size width="300" height="25"/>
+                                <maximum-size width="300" height="-1"/>
+                              </grid>
+                            </constraints>
+                            <properties>
+                              <doubleBuffered value="false"/>
+                              <font name="Georgia" size="12" style="0"/>
+                              <margin top="2" left="6" bottom="2" right="6"/>
+                            </properties>
+                          </component>
+                          <grid id="6d75d" layout-manager="GridLayoutManager" row-count="3" column-count="7" same-size-horizontally="false" same-size-vertically="false" hgap="-1" vgap="-1">
+                            <margin top="0" left="0" bottom="0" right="0"/>
+                            <constraints>
+                              <grid row="4" column="0" row-span="1" col-span="2" vsize-policy="3" hsize-policy="3" anchor="0" fill="3" indent="0" use-parent-layout="false"/>
+                            </constraints>
+                            <properties>
+                              <background color="-1"/>
+                            </properties>
+                            <border type="none"/>
+                            <children>
+                              <component id="643e0" class="javax.swing.JButton" binding="btnDeleteProduct">
+                                <constraints>
+                                  <grid row="0" column="4" row-span="1" col-span="1" vsize-policy="0" hsize-policy="3" anchor="0" fill="1" indent="0" use-parent-layout="false">
+                                    <preferred-size width="50" height="-1"/>
+                                  </grid>
+                                </constraints>
+                                <properties>
+                                  <background color="-16340559"/>
+                                  <font name="Georgia" size="13" style="0"/>
+                                  <foreground color="-1"/>
+                                  <text value="Delete"/>
+                                </properties>
+                              </component>
+                              <component id="4c6c1" class="javax.swing.JButton" binding="btnEditProduct">
+                                <constraints>
+                                  <grid row="0" column="3" row-span="1" col-span="1" vsize-policy="0" hsize-policy="3" anchor="0" fill="1" indent="0" use-parent-layout="false">
+                                    <preferred-size width="50" height="-1"/>
+                                  </grid>
+                                </constraints>
+                                <properties>
+                                  <background color="-16340559"/>
+                                  <font name="Georgia" size="13" style="0"/>
+                                  <foreground color="-1"/>
+                                  <text value="Edit"/>
+                                </properties>
+                              </component>
+                              <hspacer id="e827e">
+                                <constraints>
+                                  <grid row="0" column="0" row-span="1" col-span="1" vsize-policy="1" hsize-policy="6" anchor="0" fill="1" indent="0" use-parent-layout="false"/>
+                                </constraints>
+                              </hspacer>
+                              <hspacer id="d6540">
+                                <constraints>
+                                  <grid row="0" column="6" row-span="1" col-span="1" vsize-policy="1" hsize-policy="6" anchor="0" fill="1" indent="0" use-parent-layout="false"/>
+                                </constraints>
+                              </hspacer>
+                              <component id="98b10" class="javax.swing.JButton" binding="btnAddProduct">
+                                <constraints>
+                                  <grid row="0" column="2" row-span="1" col-span="1" vsize-policy="0" hsize-policy="3" anchor="0" fill="1" indent="0" use-parent-layout="false">
+                                    <preferred-size width="50" height="-1"/>
+                                  </grid>
+                                </constraints>
+                                <properties>
+                                  <background color="-16340559"/>
+                                  <enabled value="true"/>
+                                  <font name="Georgia" size="13" style="0"/>
+                                  <foreground color="-1"/>
+                                  <text value="Add"/>
+                                </properties>
+                              </component>
+                              <component id="f9701" class="javax.swing.JButton" binding="btnNewProduct">
+                                <constraints>
+                                  <grid row="0" column="1" row-span="1" col-span="1" vsize-policy="0" hsize-policy="3" anchor="0" fill="1" indent="0" use-parent-layout="false">
+                                    <preferred-size width="50" height="-1"/>
+                                  </grid>
+                                </constraints>
+                                <properties>
+                                  <background color="-16340559"/>
+                                  <font name="Georgia" size="13" style="0"/>
+                                  <foreground color="-1"/>
+                                  <text value="New"/>
+                                </properties>
+                              </component>
+                              <component id="e81ff" class="javax.swing.JButton" binding="btnDeleteAllProduct">
+                                <constraints>
+                                  <grid row="0" column="5" row-span="1" col-span="1" vsize-policy="0" hsize-policy="3" anchor="0" fill="1" indent="0" use-parent-layout="false">
+                                    <preferred-size width="50" height="-1"/>
+                                  </grid>
+                                </constraints>
+                                <properties>
+                                  <background color="-16340559"/>
+                                  <font name="Georgia" size="13" style="0"/>
+                                  <foreground color="-1"/>
+                                  <text value="Delete All"/>
+                                </properties>
+                              </component>
+                              <grid id="de251" layout-manager="GridLayoutManager" row-count="1" column-count="1" same-size-horizontally="false" same-size-vertically="false" hgap="-1" vgap="-1">
+                                <margin top="0" left="0" bottom="0" right="0"/>
+                                <constraints>
+                                  <grid row="1" column="0" row-span="1" col-span="1" vsize-policy="3" hsize-policy="3" anchor="0" fill="3" indent="0" use-parent-layout="false"/>
+                                </constraints>
+                                <properties>
+                                  <background color="-1"/>
+                                </properties>
+                                <border type="empty"/>
+                                <children/>
+                              </grid>
+                              <grid id="70301" layout-manager="GridLayoutManager" row-count="1" column-count="1" same-size-horizontally="false" same-size-vertically="false" hgap="-1" vgap="-1">
+                                <margin top="0" left="0" bottom="0" right="0"/>
+                                <constraints>
+                                  <grid row="2" column="0" row-span="1" col-span="1" vsize-policy="3" hsize-policy="3" anchor="0" fill="3" indent="0" use-parent-layout="false"/>
+                                </constraints>
+                                <properties>
+                                  <background color="-1"/>
+                                </properties>
+                                <border type="empty"/>
+                                <children/>
+                              </grid>
+                            </children>
+                          </grid>
+                          <component id="521cf" class="javax.swing.JSpinner" binding="btnProductQuantity">
+                            <constraints>
+                              <grid row="0" column="1" row-span="1" col-span="1" vsize-policy="0" hsize-policy="6" anchor="8" fill="1" indent="0" use-parent-layout="false">
+                                <preferred-size width="300" height="25"/>
+                                <maximum-size width="300" height="25"/>
+                              </grid>
+                            </constraints>
+                            <properties/>
+                          </component>
+                          <component id="e5702" class="javax.swing.JLabel" binding="errorProductQuantity">
+                            <constraints>
+                              <grid row="1" column="1" row-span="1" col-span="1" vsize-policy="0" hsize-policy="0" anchor="8" fill="0" indent="2" use-parent-layout="false">
+                                <preferred-size width="-1" height="8"/>
+                              </grid>
+                            </constraints>
+                            <properties>
+                              <font name="Georgia" size="10" style="0"/>
+                              <foreground color="-1"/>
+                              <text value="Error message"/>
+                            </properties>
+                          </component>
+                          <component id="54507" class="javax.swing.JLabel" binding="errorProductPrice">
+                            <constraints>
+                              <grid row="1" column="0" row-span="1" col-span="1" vsize-policy="0" hsize-policy="0" anchor="8" fill="0" indent="2" use-parent-layout="false">
+                                <preferred-size width="-1" height="8"/>
+                              </grid>
+                            </constraints>
+                            <properties>
+                              <font name="Georgia" size="10" style="0"/>
+                              <foreground color="-1"/>
+                              <text value="Error message"/>
+                            </properties>
+                          </component>
+                          <component id="a7f7d" class="javax.swing.JLabel">
+                            <constraints>
+                              <grid row="2" column="0" row-span="1" col-span="1" vsize-policy="0" hsize-policy="0" anchor="8" fill="0" indent="2" use-parent-layout="false"/>
+                            </constraints>
+                            <properties>
+                              <font name="Georgia" size="12" style="1"/>
+                              <text value="Image *"/>
+                            </properties>
+                          </component>
+                          <grid id="d17ae" layout-manager="GridLayoutManager" row-count="2" column-count="5" same-size-horizontally="false" same-size-vertically="false" hgap="-1" vgap="-1">
+                            <margin top="0" left="0" bottom="0" right="0"/>
+                            <constraints>
+                              <grid row="3" column="0" row-span="1" col-span="2" vsize-policy="3" hsize-policy="3" anchor="0" fill="3" indent="0" use-parent-layout="false"/>
+                            </constraints>
+                            <properties>
+                              <background color="-1"/>
+                            </properties>
+                            <border type="none"/>
+                            <children>
+                              <component id="f75a2" class="javax.swing.JTextField" binding="txtProductImage">
+                                <constraints>
+                                  <grid row="0" column="0" row-span="1" col-span="2" vsize-policy="0" hsize-policy="6" anchor="8" fill="1" indent="2" use-parent-layout="false">
+                                    <preferred-size width="300" height="25"/>
+                                    <maximum-size width="500" height="-1"/>
+                                  </grid>
+                                </constraints>
+                                <properties>
+                                  <disabledTextColor color="-16777216"/>
+                                  <doubleBuffered value="false"/>
+                                  <enabled value="false"/>
+                                  <font name="Georgia" size="12" style="0"/>
+                                  <margin top="2" left="6" bottom="2" right="6"/>
+                                  <selectionColor color="-16777216"/>
+                                  <text value="&lt;Choosen file&gt;"/>
+                                </properties>
+                              </component>
+                              <component id="ecd86" class="javax.swing.JLabel" binding="lbProductImage">
+                                <constraints>
+                                  <grid row="1" column="0" row-span="1" col-span="3" vsize-policy="3" hsize-policy="3" anchor="0" fill="0" indent="0" use-parent-layout="false"/>
+                                </constraints>
+                                <properties>
+                                  <preferredSize width="150" height="170"/>
+                                  <text value=""/>
+                                </properties>
+                              </component>
+                              <component id="7f8fc" class="javax.swing.JRadioButton" binding="rdSale">
+                                <constraints>
+                                  <grid row="0" column="3" row-span="1" col-span="1" vsize-policy="0" hsize-policy="3" anchor="8" fill="0" indent="2" use-parent-layout="false"/>
+                                </constraints>
+                                <properties>
+                                  <background color="-1"/>
+                                  <font name="Georgia" size="12" style="0"/>
+                                  <inheritsPopupMenu value="false"/>
+                                  <selected value="true"/>
+                                  <text value="Sale"/>
+                                </properties>
+                              </component>
+                              <component id="d4bae" class="javax.swing.JRadioButton" binding="rdSoldOut">
+                                <constraints>
+                                  <grid row="0" column="4" row-span="1" col-span="1" vsize-policy="0" hsize-policy="3" anchor="8" fill="0" indent="1" use-parent-layout="false"/>
+                                </constraints>
+                                <properties>
+                                  <background color="-1"/>
+                                  <font name="Georgia" size="12" style="0"/>
+                                  <text value="Out of Stock  "/>
+                                </properties>
+                              </component>
+                              <component id="a6a8c" class="javax.swing.JButton" binding="btnUploadImage">
+                                <constraints>
+                                  <grid row="0" column="2" row-span="1" col-span="1" vsize-policy="0" hsize-policy="3" anchor="0" fill="1" indent="0" use-parent-layout="false">
+                                    <preferred-size width="55" height="-1"/>
+                                  </grid>
+                                </constraints>
+                                <properties>
+                                  <background color="-16340559"/>
+                                  <font name="Georgia" size="13" style="0"/>
+                                  <foreground color="-1"/>
+                                  <text value="Upload Image"/>
+                                </properties>
+                              </component>
+                            </children>
+                          </grid>
+                          <component id="26d95" class="javax.swing.JLabel" binding="lbStatus">
+                            <constraints>
+                              <grid row="2" column="1" row-span="1" col-span="1" vsize-policy="0" hsize-policy="0" anchor="8" fill="0" indent="15" use-parent-layout="false"/>
+                            </constraints>
+                            <properties>
+                              <font name="Georgia" size="12" style="1"/>
+                              <text value="Status"/>
+                            </properties>
+                          </component>
+                        </children>
+                      </grid>
+                      <component id="674b" class="javax.swing.JTextField" binding="txtProductID">
+                        <constraints>
+                          <grid row="1" column="0" row-span="1" col-span="2" vsize-policy="0" hsize-policy="6" anchor="8" fill="1" indent="2" use-parent-layout="false">
+                            <preferred-size width="120" height="25"/>
+                          </grid>
+                        </constraints>
+                        <properties>
+                          <doubleBuffered value="false"/>
+                          <font name="Georgia" size="12" style="0"/>
+                          <margin top="2" left="6" bottom="2" right="6"/>
+                          <text value=""/>
+                        </properties>
+                      </component>
+                      <component id="411eb" class="javax.swing.JLabel">
+                        <constraints>
+                          <grid row="9" column="1" row-span="1" col-span="1" vsize-policy="0" hsize-policy="0" anchor="8" fill="0" indent="6" use-parent-layout="false"/>
+                        </constraints>
+                        <properties>
+                          <font name="Georgia" size="12" style="1"/>
+                          <text value=" Quanity *"/>
+                        </properties>
+                      </component>
+                      <component id="3d1b8" class="javax.swing.JLabel" binding="errorProductID">
+                        <constraints>
+                          <grid row="2" column="0" row-span="1" col-span="2" vsize-policy="0" hsize-policy="0" anchor="8" fill="0" indent="2" use-parent-layout="false">
+                            <preferred-size width="-1" height="8"/>
+                          </grid>
+                        </constraints>
+                        <properties>
+                          <font name="Georgia" size="10" style="0"/>
+                          <foreground color="-1"/>
+                          <text value="Error message"/>
+                        </properties>
+                      </component>
+                      <component id="6cec3" class="javax.swing.JLabel" binding="errorProductName">
+                        <constraints>
+                          <grid row="5" column="0" row-span="1" col-span="2" vsize-policy="0" hsize-policy="0" anchor="8" fill="0" indent="2" use-parent-layout="false">
+                            <preferred-size width="-1" height="8"/>
+                          </grid>
+                        </constraints>
+                        <properties>
+                          <font name="Georgia" size="10" style="0"/>
+                          <foreground color="-1"/>
+                          <text value="Error message"/>
+                        </properties>
+                      </component>
+                      <component id="d8ac8" class="javax.swing.JLabel" binding="errorProductIngredient">
+                        <constraints>
+                          <grid row="8" column="0" row-span="1" col-span="2" vsize-policy="0" hsize-policy="0" anchor="8" fill="0" indent="2" use-parent-layout="false">
+                            <preferred-size width="-1" height="8"/>
+                          </grid>
+                        </constraints>
+                        <properties>
+                          <font name="Georgia" size="10" style="0"/>
+                          <foreground color="-1"/>
+                          <text value="Error message"/>
+                        </properties>
+                      </component>
+                    </children>
+                  </grid>
+                </children>
+              </grid>
+              <grid id="fb398" layout-manager="GridLayoutManager" row-count="1" column-count="1" same-size-horizontally="false" same-size-vertically="false" hgap="-1" vgap="-1">
+                <margin top="0" left="0" bottom="0" right="0"/>
+                <constraints>
+                  <tabbedpane title="Statistical  "/>
+                </constraints>
+                <properties/>
+                <border type="none"/>
+                <children/>
+              </grid>
+            </children>
+          </tabbedpane>
+          <vspacer id="1fb57">
+            <constraints>
+              <grid row="1" column="0" row-span="1" col-span="1" vsize-policy="6" hsize-policy="1" anchor="0" fill="2" indent="0" use-parent-layout="false"/>
+            </constraints>
+          </vspacer>
+          <grid id="31697" layout-manager="GridLayoutManager" row-count="1" column-count="2" same-size-horizontally="false" same-size-vertically="false" hgap="-1" vgap="-1">
+            <margin top="0" left="0" bottom="0" right="0"/>
+            <constraints>
+              <grid row="1" column="1" row-span="1" col-span="1" vsize-policy="3" hsize-policy="3" anchor="0" fill="3" indent="0" use-parent-layout="false"/>
+            </constraints>
+            <properties/>
+            <border type="none"/>
+            <children>
+              <component id="3417e" class="javax.swing.JButton">
+                <constraints>
+                  <grid row="0" column="1" row-span="1" col-span="1" vsize-policy="0" hsize-policy="3" anchor="0" fill="1" indent="0" use-parent-layout="false"/>
+                </constraints>
+                <properties>
+                  <background color="-16340559"/>
+                  <font name="Georgia" size="13" style="0"/>
+                  <foreground color="-1"/>
+                  <text value="Logout"/>
+                </properties>
+              </component>
+              <hspacer id="a35fc">
+                <constraints>
+                  <grid row="0" column="0" row-span="1" col-span="1" vsize-policy="1" hsize-policy="6" anchor="0" fill="1" indent="0" use-parent-layout="false"/>
+                </constraints>
+              </hspacer>
+            </children>
+          </grid>
+          <grid id="3ba4d" layout-manager="GridLayoutManager" row-count="1" column-count="1" same-size-horizontally="false" same-size-vertically="false" hgap="-1" vgap="-1">
+            <margin top="0" left="0" bottom="0" right="0"/>
+            <constraints>
+              <grid row="2" column="1" row-span="1" col-span="1" vsize-policy="3" hsize-policy="3" anchor="0" fill="3" indent="0" use-parent-layout="false"/>
+            </constraints>
+            <properties/>
+            <border type="none"/>
+            <children/>
+          </grid>
+        </children>
+      </grid>
+      <vspacer id="83045">
+        <constraints>
+          <grid row="1" column="0" row-span="1" col-span="1" vsize-policy="6" hsize-policy="1" anchor="0" fill="2" indent="0" use-parent-layout="false"/>
+        </constraints>
+      </vspacer>
+      <grid id="e7a46" layout-manager="GridLayoutManager" row-count="1" column-count="1" same-size-horizontally="false" same-size-vertically="false" hgap="-1" vgap="-1">
+        <margin top="0" left="0" bottom="0" right="0"/>
+        <constraints>
+          <grid row="0" column="2" row-span="1" col-span="1" vsize-policy="3" hsize-policy="3" anchor="0" fill="3" indent="0" use-parent-layout="false"/>
+        </constraints>
+        <properties/>
+        <border type="none"/>
+        <children/>
+      </grid>
+      <hspacer id="1f49e">
+        <constraints>
+          <grid row="0" column="1" row-span="1" col-span="1" vsize-policy="1" hsize-policy="6" anchor="0" fill="1" indent="0" use-parent-layout="false"/>
+        </constraints>
+      </hspacer>
+    </children>
+  </grid>
+  <buttonGroups>
+    <group name="btnStatus">
+      <member id="7f8fc"/>
+      <member id="d4bae"/>
+    </group>
+  </buttonGroups>
+</form>
