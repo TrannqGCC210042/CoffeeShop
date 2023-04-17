@@ -4,11 +4,12 @@ import java.io.Serializable;
 import java.util.Date;
 
 public class Order implements Serializable {
+    private static int step = 0;
     private int id;
-    private double total;
-    private Date date;
-    private int vat;
-    private Account account;
+    private float total;
+    private String date;
+    private float vat;
+    private int waitingCardNumber;
     private boolean status;
 
     public int getId() {
@@ -19,36 +20,36 @@ public class Order implements Serializable {
         this.id = id;
     }
 
-    public double getTotal() {
+    public float getTotal() {
         return total;
     }
 
-    public void setTotal(double total) {
+    public void setTotal(float total) {
         this.total = total;
     }
 
-    public Date getDate() {
+    public String getDate() {
         return date;
     }
 
-    public void setDate(Date date) {
+    public void setDate(String date) {
         this.date = date;
     }
 
-    public int getVat() {
+    public float getVat() {
         return vat;
     }
 
-    public void setVat(int vat) {
+    public void setVat(float vat) {
         this.vat = vat;
     }
 
-    public Account getAccount() {
-        return account;
+    public int getWaitingCardNumber() {
+        return waitingCardNumber;
     }
 
-    public void setAccount(Account account) {
-        this.account = account;
+    public void setWaitingCardNumber(int waitingCardNumber) {
+        this.waitingCardNumber = waitingCardNumber;
     }
 
     public boolean isStatus() {
@@ -63,12 +64,12 @@ public class Order implements Serializable {
     public Order() {
     }
 
-    public Order(int id, double total, Date date, int vat, Account account, boolean status) {
-        this.id = id;
+    public Order(float total, String date, float vat, int waitingCardNumber) {
+        this.id = ++step;
         this.total = total;
         this.date = date;
         this.vat = vat;
-        this.account = account;
-        this.status = status;
+        this.waitingCardNumber = waitingCardNumber;
+        this.status = false;
     }
 }

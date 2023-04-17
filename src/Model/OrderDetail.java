@@ -34,9 +34,9 @@ public class OrderDetail implements Serializable {
     public OrderDetail() {
     }
 
-    public OrderDetail(Order order, Product product, int quantity) {
-        this.order = order;
+    public OrderDetail( Product product, Order order,int quantity) {
         this.product = product;
+        this.order = order;
         this.quantity = quantity;
     }
 }

@@ -94,4 +94,5 @@ public class ProductController {
     public void deleteAllProduct() {
         productList.removeAll(productList);
     }
+
 }

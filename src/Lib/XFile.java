@@ -15,7 +15,7 @@ public class XFile {
             objInput.close();
             return obj;
         } catch (Exception e) {
-            System.err.println(e);
+            System.out.println("Empty file!");
             return null;
         }
     }
@@ -43,13 +43,15 @@ public class XFile {
     }
 
     public static void copyFile(String originalName, String newName) {
-        File originalFile = new File(originalName);
-        File newFile = new File(newName);
+        if (originalName != null) {
+            File originalFile = new File(originalName);
+            File newFile = new File(newName);
 
-        try {
-            Files.copy(originalFile.toPath(), newFile.toPath());
-        } catch (Exception e) {
-            System.err.println(e);
+            try {
+                Files.copy(originalFile.toPath(), newFile.toPath());
+            } catch (Exception e) {
+                System.err.println(e);
+            }
         }
     }
 }

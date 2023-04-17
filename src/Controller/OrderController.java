@@ -37,13 +37,21 @@ public class OrderController {
     public void fillToTable() {
         tableOrderModel.setRowCount(0);
         for (Order order: orderList) {
-
+            String status = null;
+            if (order.isStatus()) {
+                status = "Paid";
+            }else {
+                status = "Not Paid";
+            }
             Object[] rowObj = new Object[] {
-//                    order.getId(), order.getName(), order.getIngredient(), product.getPrice(), product.getQuantity(), status, product.getImage()
+                    order.getId(), order.getDate(), order.getVat(), order.getTotal(), order.getWaitingCardNumber(), status
             };
 
             tableOrderModel.addRow(rowObj);
         }
+    }
+    public void add(Order order){
+        orderList.add(order);
     }
 
 }

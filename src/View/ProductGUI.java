@@ -1,45 +1,38 @@
 package View;
 
+import Controller.OrderController;
+import Controller.OrderDetailsController;
 import Controller.ProductController;
+import Controller.StaffController;
+import Lib.ButtonEditor;
 import Lib.ImageRenderer;
 import Lib.XFile;
+import Model.Order;
+import Model.OrderDetail;
 import Model.Product;
 
 import javax.swing.*;
 import javax.swing.border.Border;
 import javax.swing.filechooser.FileNameExtensionFilter;
 import javax.swing.table.DefaultTableModel;
-import javax.swing.table.TableCellRenderer;
 import java.awt.*;
 import java.awt.event.*;
 import java.awt.image.BufferedImage;
+import java.beans.PropertyChangeEvent;
+import java.beans.PropertyChangeListener;
 import java.io.File;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
 
 
 public class ProductGUI extends JFrame {
     private JPanel panelStaff;
-
-    private JLabel lbProduct1;
-    private JLabel product3;
-    private JLabel product11;
-
-    private JLabel product4;
-    private JLabel product15;
-    private JLabel product17;
-
-    private JLabel product12;
-    private JLabel product13;
     private JTextField txtSearch;
     private JTabbedPane tblManagement;
     private JPanel panelProductOrder;
-    private JLabel product5;
-    private JLabel product6;
-    private JLabel product7;
-    private JLabel product8;
     private JButton btnNewProduct;
     private JButton btnEditProduct;
     private JButton btnDeleteProduct;
@@ -50,17 +43,9 @@ public class ProductGUI extends JFrame {
     private JPanel panelProduct;
     private JTable tbProduct;
     private JTable tbOrder;
-    private JLabel product2;
-    private JLabel product9;
-    private JLabel product10;
-    private JLabel product14;
-    private JLabel product16;
-    private JLabel product18;
     private JButton btnAddProduct;
     private JButton btnDeleteAllProduct;
     private JTextField txtDay;
-    private JLabel product19;
-    private JLabel product20;
     private JTextField txtProductID;
     private JButton btnSaveOrder;
     private JButton btnCancelOrder;
@@ -81,15 +66,21 @@ public class ProductGUI extends JFrame {
     private JRadioButton rdSale;
     private JRadioButton rdSoldOut;
     private JLabel lbStatus;
+    private JTable tbStatics;
+    private JButton btnASCday;
+    private JButton btnDESCday;
     private JButton newButton;
     private JButton editButton;
     private JButton deleteButton;
     String filePath = "src\\File\\products.dat";
+    String pathOrder = "src\\File\\orders.dat";
+    String pathOrderDetail = "src\\File\\orderDetails.dat";
     DefaultTableModel tableOrderModel;
-    List<Product> productsList;
     int row = -1;
     ProductController productController;
-    String originalPath;
+    OrderController orderController;
+    OrderDetailsController orderDetailsController;
+    String originalPath = null;
 
     public ProductGUI(String title) throws HeadlessException{
         super(title);
@@ -97,6 +88,9 @@ public class ProductGUI extends JFrame {
         this.setContentPane(panelStaff);
         this.pack();
         int delay = 100;
+        lbStatus.setVisible(false);
+        rdSale.setVisible(false);
+        rdSoldOut.setVisible(false);
 
         Timer timer = new Timer(delay, new ActionListener() {
             @Override
@@ -138,16 +132,44 @@ public class ProductGUI extends JFrame {
         tbProduct.setRowHeight(100);
         tbProduct.getColumnModel().getColumn(6).setCellRenderer(new ImageRenderer());
 
+//        PRODUCT
 //        Create class ProductController to use method into it
         productController = new ProductController(
                 (DefaultTableModel) tbProduct.getModel(),
                 (List<Product>) XFile.readObject(filePath)
         );
 
-        productController.fillToTable();
+//        Set field name for table Product
+        tbStatics.setModel(new DefaultTableModel(
+                new Object[][]{ },
+                new String[]{
+                        "Order ID", "Date", "VAT", "Total", "Waiting Card Number", "Status", "Order Detail"
+                }
+        ));
+
+//        ORDER
+//        Create class ProductController to use method into it
+        orderController = new OrderController(
+                (DefaultTableModel) tbStatics.getModel(),
+                (List<Order>) XFile.readObject(pathOrder)
+        );
+
+        orderController.fillToTable();
+        tbStatics.getColumnModel().getColumn(6).setCellRenderer(new ButtonEditor());
+
+        int desiredColumn = 6; // index of the column you want to catch clicks on
+        tbStatics.addMouseListener(new MouseAdapter() {
+            @Override
+            public void mouseClicked(MouseEvent e) {
+                int column = tbStatics.columnAtPoint(e.getPoint());*
+                if (column == desiredColumn) {
+                    JOptionPane.showMessageDialog(ProductGUI.this, "Do you want to remove it");
+                }
+            }
+        });
 
 
-
+//      EVENT
 //        Clear Product button
         btnNewProduct.addMouseListener(new MouseAdapter() {
             @Override
@@ -200,9 +222,50 @@ public class ProductGUI extends JFrame {
                 getProductImage();
             }
         });
+        tblManagement.addMouseListener(new MouseAdapter() {
+            @Override
+            public void mouseClicked(MouseEvent e) {
+                productController.fillToTable();
+            }
+        });
+        btnCancelOrder.addMouseListener(new MouseAdapter() {
+            @Override
+            public void mouseClicked(MouseEvent e) {
+                cancelOrder();
+            }
+        });
+        btnSaveOrder.addMouseListener(new MouseAdapter() {
+            @Override
+            public void mouseClicked(MouseEvent e) {
+                payment();
+            }
+        });
+        tbProduct.addPropertyChangeListener(new PropertyChangeListener() {
+            @Override
+            public void propertyChange(PropertyChangeEvent evt) {
+                JOptionPane.showMessageDialog(null, "You cannot edit directly in the Product table!", "Warming", JOptionPane.INFORMATION_MESSAGE);
+
+            }
+        });
     }
 
-//    Image for Product
+    private void clearOrder() {
+        tableOrderModel.setRowCount(0); // delete all rows
+        tableOrderModel.fireTableDataChanged(); // update the table mode
+        tbOrder.repaint(); // refresh the JTable
+    }
+
+    private void cancelOrder() {
+        int answer = JOptionPane.showConfirmDialog(this, "Are you sure to cancel this Order", "Remove",
+                JOptionPane.YES_NO_OPTION, JOptionPane.QUESTION_MESSAGE);
+
+        if (answer == JOptionPane.YES_OPTION) {
+            clearOrder();
+        }
+    }
+
+
+    //    Image for Product
     private void getProductImage() {
         String userDir = System.getProperty("user.dir");
         JFileChooser fileChooser = new JFileChooser(userDir);
@@ -235,6 +298,10 @@ public class ProductGUI extends JFrame {
     private void showIntoInput(int row) {
         clearErrorProduct();
 
+        lbStatus.setVisible(true);
+        rdSale.setVisible(true);
+        rdSoldOut.setVisible(true);
+
         String id = (String) tbProduct.getValueAt(row, 0);
         txtProductID.setText(id);
         txtProductID.setEnabled(false);
@@ -261,17 +328,19 @@ public class ProductGUI extends JFrame {
 
         String image = (String) tbProduct.getValueAt(row, 6);
         txtProductImage.setText("1 file chosen");
+        txtProductImage.setToolTipText(image);
         ImageIcon imageIcon = new ImageIcon(new ImageIcon("src\\Images\\" + image).getImage().getScaledInstance(200,200,Image.SCALE_DEFAULT));
         lbProductImage.setIcon(imageIcon);
+
     }
 
 //    Function: delete product
     private void deleteOne() {
         if (row == -1) {
-            JOptionPane.showMessageDialog(this, "Please choose the product!");
+            JOptionPane.showMessageDialog(null, "Please choose the product!");
             clearErrorProduct();
         }else {
-            int answer = JOptionPane.showConfirmDialog(this, "Do you want to remove it", "Remove",
+            int answer = JOptionPane.showConfirmDialog(null, "Do you want to remove it", "Remove",
                     JOptionPane.YES_NO_OPTION, JOptionPane.QUESTION_MESSAGE);
 
             if (answer == JOptionPane.YES_OPTION) {
@@ -301,7 +370,7 @@ public class ProductGUI extends JFrame {
 //    Edit Product
     private void edit() {
         if (row == -1) {
-            JOptionPane.showMessageDialog(this, "Please choose the product!");
+            JOptionPane.showMessageDialog(null, "Please choose the product!");
             clearInput();
         }else {
             lbStatus.setVisible(true);
@@ -327,14 +396,23 @@ public class ProductGUI extends JFrame {
 
 //              Edit List
                 productController.updateProductLst(product);
-//              Copy image file
-                String newProductPath = "src\\Images\\" + txtProductImage.getToolTipText();
-                XFile.copyFile(originalPath, newProductPath);
+
+//                Check if it is old image or not
+                for (Product p:productController.getProductList()) {
+                    if (p.getImage().equals(txtProductImage.getToolTipText())) {
+                        String newProductPath = "src\\Images\\" + txtProductImage.getToolTipText();
+                        XFile.copyFile(originalPath, newProductPath); // Copy image file
+                        break;
+                    }
+                }
 
                 productController.fillToTable();
                 XFile.writeObject(filePath, productController.getProductList());
 
                 clearInput();
+
+                createUIComponents();
+
             }
         }
     }
@@ -364,12 +442,15 @@ public class ProductGUI extends JFrame {
             XFile.writeObject(filePath, productController.getProductList());
 //        Clear form
             clearInput();
+
+            createUIComponents();
         }
     }
 
 
     //    Clear Product Function
     private void clearInput() {
+        tbProduct.setVisible(true);
         lbStatus.setVisible(false);
         rdSale.setVisible(false);
         rdSoldOut.setVisible(false);
@@ -524,116 +605,127 @@ public class ProductGUI extends JFrame {
         productScrollPanel = new JScrollPane(productPanel, ScrollPaneConstants.VERTICAL_SCROLLBAR_AS_NEEDED, ScrollPaneConstants.HORIZONTAL_SCROLLBAR_AS_NEEDED);
         productScrollPanel.setPreferredSize(new Dimension(2000, 1000));
 
-        for (Product product : (List<Product>)XFile.readObject(filePath)) {
-//            Create layout product Panel
-            JPanel layoutProductPanel = new JPanel(new GridBagLayout());
-            GridBagConstraints gbc = new GridBagConstraints();
-            gbc.fill = GridBagConstraints.HORIZONTAL;
-            gbc.insets = new Insets(5, 5, 5, 5);
+        List<Product> productList = (List<Product>)XFile.readObject(filePath);
+        if (productList != null) {
+            for (Product product : productList) {
+                if (product.isStatus()) {
 
-//            Create image of product
-            JPanel imagePanel = new JPanel();
-            imagePanel.setBackground(Color.white); // Set background
-            imagePanel.setToolTipText(product.getIngredient());
+//                  Create layout product Panel
+                    JPanel layoutProductPanel = new JPanel(new GridBagLayout());
+                    GridBagConstraints gbc = new GridBagConstraints();
+                    gbc.fill = GridBagConstraints.HORIZONTAL;
+                    gbc.insets = new Insets(5, 5, 5, 5);
 
-            Border blackline = BorderFactory.createLineBorder(Color.black);
-            imagePanel.setBorder(blackline); // Set border for panel
+//                  Create image of product
+                    JPanel imagePanel = new JPanel();
+                    imagePanel.setBackground(Color.white); // Set background
+                    imagePanel.setToolTipText(product.getIngredient());
 
-            Image img = new ImageIcon("src/Images/" + product.getImage()).getImage().getScaledInstance(100, 110, Image.SCALE_DEFAULT);
-            ImageIcon imageIcon = new ImageIcon(img);
-            JLabel imgLabel = new JLabel();
-            imgLabel.setIcon(imageIcon);
-            imagePanel.add(imgLabel);
-            imgLabel.setToolTipText(product.getIngredient());
+                    Border blackline = BorderFactory.createLineBorder(Color.black);
+                    imagePanel.setBorder(blackline); // Set border for panel
 
-            gbc.gridx = 1;
-            gbc.gridy = 0;
-            gbc.gridwidth = 2;
-            layoutProductPanel.add(imagePanel, gbc);
+                    Image img = new ImageIcon("src/Images/" + product.getImage()).getImage().getScaledInstance(100, 110, Image.SCALE_DEFAULT);
+                    ImageIcon imageIcon = new ImageIcon(img);
+                    JLabel imgLabel = new JLabel();
+                    imgLabel.setIcon(imageIcon);
+                    imagePanel.add(imgLabel);
+                    imgLabel.setToolTipText(product.getIngredient());
 
-//            Create name of product
-            String text = "FREEZE COFFEE FREEZE";
-            String[] words = text.split(" ");
-            for (int j = 0; j < words.length; j++) {
-                if (j % 2 != 0) {
-                    words[j] += "<br/>";
-                } else {
-                    words[j] += " ";
+                    gbc.gridx = 1;
+                    gbc.gridy = 0;
+                    gbc.gridwidth = 2;
+                    layoutProductPanel.add(imagePanel, gbc);
+
+//                  Create name of product
+                    String text = product.getName();
+                    String[] words = text.split(" ");
+                    for (int j = 0; j < words.length; j++) {
+                        if (j % 2 != 0) {
+                            words[j] += "<br/>";
+                        } else {
+                            words[j] += " ";
+                        }
+                    }
+                    StringBuilder productName = new StringBuilder();
+                    for (int j = 0; j < words.length; j++) {
+                        productName.append(words[j]);
+                    }
+
+                    JLabel lbProductName = new JLabel("<html>" + productName + "</html>", SwingConstants.CENTER);
+                    lbProductName.setFont(new Font("Century Schoolbook", Font.BOLD, 12));
+                    lbProductName.setToolTipText(product.getId());
+
+                    gbc.gridx = 1;
+                    gbc.gridy = 1;
+                    gbc.gridwidth = 2;
+                    layoutProductPanel.add(lbProductName, gbc);
+
+//                  Create choose qty
+                    JLabel lbQty = new JLabel("Quantity");
+                    lbQty.setFont(new Font("Georgia", Font.PLAIN, 13));
+
+                    SpinnerModel sm = new SpinnerNumberModel(0, 0, product.getQuantity(), 1);
+                    JSpinner spinner = new JSpinner(sm);
+                    spinner.setFont(new Font("Century Schoolbook", Font.PLAIN, 13));
+                    spinner.setPreferredSize(new Dimension(100, 23));
+
+                    gbc.gridx = 0;
+                    gbc.gridy = 2;
+                    layoutProductPanel.add(lbQty, gbc);
+
+                    gbc.gridx = 2;
+                    gbc.gridy = 2;
+                    layoutProductPanel.add(spinner, gbc);
+
+//                  Create product price
+                    JLabel lbPrice = new JLabel("Price");
+                    lbPrice.setFont(new Font("Georgia", Font.PLAIN, 13));
+
+                    float productPrice = product.getPrice();
+                    JLabel lbProductPrice = new JLabel("$" + productPrice, SwingConstants.CENTER);
+                    lbProductPrice.setFont(new Font("Century Schoolbook", Font.BOLD, 12));
+
+                    gbc.gridx = 0;
+                    gbc.gridy = 3;
+                    layoutProductPanel.add(lbPrice, gbc);
+
+                    gbc.gridx = 2;
+                    gbc.gridy = 3;
+                    layoutProductPanel.add(lbProductPrice, gbc);
+
+//                  Create add to cart button
+                    JButton addCart = new JButton("Add To Cart");
+                    Color bg = new Color(6, 169, 177);
+                    addCart.setBackground(bg);
+                    addCart.setForeground(Color.white);
+                    addCart.setFont(new Font("Century Schoolbook", Font.PLAIN, 14));
+                    addCart.setActionCommand(product.getId());
+
+//                  Add to cart
+                    addCart.addMouseListener(new MouseAdapter() {
+                        @Override
+                        public void mouseClicked(MouseEvent e) {
+                            if (spinner.getValue().equals(0)) {
+                                JOptionPane.showMessageDialog(null, "Please choose quantity!", "Warning", JOptionPane.WARNING_MESSAGE);
+                            }else {
+                                addToCart(lbProductName.getToolTipText(), product.getImage(), productName, (Integer) spinner.getValue(), productPrice * (Integer) spinner.getValue());
+                                spinner.setValue(0);
+                            }
+                        }
+                    });
+
+                    gbc.gridx = 1;
+                    gbc.gridy = 4;
+                    gbc.gridwidth = 2;
+                    layoutProductPanel.add(addCart, gbc);
+
+                    productPanel.add(layoutProductPanel);;
                 }
             }
-            StringBuilder productName = new StringBuilder();
-            for (int j = 0; j < words.length; j++) {
-                productName.append(words[j]);
-            }
-
-            JLabel lbProductName = new JLabel("<html>" + productName + "</html>", SwingConstants.CENTER);
-            lbProductName.setFont(new Font("Century Schoolbook", Font.BOLD, 12));
-            lbProductName.setToolTipText(product.getId());
-
-            gbc.gridx = 1;
-            gbc.gridy = 1;
-            gbc.gridwidth = 2;
-            layoutProductPanel.add(lbProductName, gbc);
-
-//            Create choose qty
-            JLabel lbQty = new JLabel("Quantity");
-            lbQty.setFont(new Font("Georgia", Font.PLAIN, 13));
-
-            SpinnerModel sm = new SpinnerNumberModel(0, 0, product.getQuantity(), 1);
-            JSpinner spinner = new JSpinner(sm);
-            spinner.setFont(new Font("Century Schoolbook", Font.PLAIN, 13));
-            spinner.setPreferredSize(new Dimension(100, 23));
-
-            gbc.gridx = 0;
-            gbc.gridy = 2;
-            layoutProductPanel.add(lbQty, gbc);
-
-            gbc.gridx = 2;
-            gbc.gridy = 2;
-            layoutProductPanel.add(spinner, gbc);
-
-            //            Create product price
-            JLabel lbPrice = new JLabel("Price");
-            lbPrice.setFont(new Font("Georgia", Font.PLAIN, 13));
-
-            float productPrice = product.getPrice();
-            JLabel lbProductPrice = new JLabel("$" + productPrice, SwingConstants.CENTER);
-            lbProductPrice.setFont(new Font("Century Schoolbook", Font.BOLD, 12));
-
-            gbc.gridx = 0;
-            gbc.gridy = 3;
-            layoutProductPanel.add(lbPrice, gbc);
-
-            gbc.gridx = 2;
-            gbc.gridy = 3;
-            layoutProductPanel.add(lbProductPrice, gbc);
-
-//            Create add to cart button
-            JButton addToCart = new JButton("Add To Cart");
-            Color bg = new Color(6, 169, 177);
-            addToCart.setBackground(bg);
-            addToCart.setForeground(Color.white);
-            addToCart.setFont(new Font("Century Schoolbook", Font.PLAIN, 14));
-            addToCart.setActionCommand(product.getId());
-
-//        Add to cart
-            addToCart.addMouseListener(new MouseAdapter() {
-                @Override
-                public void mouseClicked(MouseEvent e) {
-                    addToOrder(lbProductName.getToolTipText(), product.getImage(), productName, (Integer) spinner.getValue(), productPrice);
-                }
-            });
-
-            gbc.gridx = 1;
-            gbc.gridy = 4;
-            gbc.gridwidth = 2;
-            layoutProductPanel.add(addToCart, gbc);
-
-            productPanel.add(layoutProductPanel);;
         }
     }
 
-    private void addToOrder(String productID, String image, StringBuilder productName, int quantity, float price) {
+    private void addToCart(String productID, String image, StringBuilder productName, int quantity, float price) {
         boolean temp = true;  // variable to check Product exist or not
 
 //        When table cannot data, index of tbOrder = -1
@@ -642,11 +734,22 @@ public class ProductGUI extends JFrame {
                 String id = (String) tbOrder.getValueAt(i, 0);
 
                 if (id.equals(productID)) {
+//                    get old value in Order table
                     int oldQuantity = (Integer) tbOrder.getValueAt(i, 3);
-                    int newQuantity = quantity + oldQuantity;
-                    tbOrder.setValueAt(newQuantity, i, 3);
+                    float oldPrice = (float) tbOrder.getValueAt(i, 4);
 
-                    temp = false;
+//                    check new value is valid. If return value of method checkUpdateQuantityAndPrice = 0, error
+                    int[] results = checkUpdateQuantityAndPrice(id, quantity, oldQuantity);
+
+                    if (results[0] < 0) {
+                        JOptionPane.showMessageDialog(null, "Some thing error. The current stock quantity is " + results[1], "Warning", JOptionPane.WARNING_MESSAGE);
+                        temp = false;
+                        break;
+                    }else {
+                        tbOrder.setValueAt(results[0], i, 3);
+                        tbOrder.setValueAt(results[0] * price, i, 4);
+                        temp = false;
+                    }
                     break;
                 }
             }
@@ -656,5 +759,103 @@ public class ProductGUI extends JFrame {
             tableOrderModel.addRow(new Object[]{productID, image, productName, quantity, price});
         }
 
+        prepareInvoice();
     }
+
+    private int[] checkUpdateQuantityAndPrice(String id, int quantity, int oldQuantity) {
+        int[] grid = new int[2];
+
+        for (Product product : productController.getProductList()) {
+            if (product.getId().equals(id)) {
+
+//                Check total quantity added is valid or not
+                int newQuantity = quantity + oldQuantity;
+                int tempQty = product.getQuantity() - newQuantity;
+
+//                If quantity < stock => temQty < 0
+                if (tempQty > 0 ) {
+                    grid[0] = newQuantity;
+                    grid[1] = product.getQuantity();
+                }else {
+                    grid[0] = -1;
+                    grid[1] = product.getQuantity();
+                }
+            }
+        }
+
+        return grid;
+    }
+
+
+    //    Display VAT, subtotal, total
+    private void prepareInvoice() {
+        Float subtotal = 0F;
+
+        if (tbOrder.getRowCount() > 0) {
+            for (int i = 0; i < tbOrder.getRowCount(); i++) {
+                float price = (float) tbOrder.getValueAt(i, 4);
+                subtotal += price;
+            }
+            txtVAT.setText(String.valueOf(subtotal * 0.1));
+            txtSubtotal.setText(String.valueOf(subtotal));
+            txtTotal.setText(String.valueOf(subtotal + subtotal * 0.1));
+        }else {
+            txtVAT.setText("0");
+            txtSubtotal.setText("0");
+            txtTotal.setText("0");
+        }
+
+    }
+
+    private void payment() {
+        int i = 0; //get data in table
+
+//        Subtract the quantity in stock
+        for (Product product : productController.getProductList()) {
+            String name = (String) tbOrder.getValueAt(i, 1);
+            int quantity = (int) tbOrder.getValueAt(i, 3);
+
+            if (product.getName().equals(name)){
+                int isValid = product.getQuantity() - quantity;
+                if (isValid < 0) {
+                    product.setQuantity(isValid);
+                }else {
+                    JOptionPane.showMessageDialog(null, "Some thing error quantity in Stock. Please restart the program!", "ERROR", JOptionPane.ERROR_MESSAGE);
+                    Window window = SwingUtilities.getWindowAncestor(panelOrder);
+                    window.dispose();
+                }
+            }
+            i++;
+        }
+
+//        SAVE ORDER
+        Order order = new Order(
+                Float.parseFloat(txtTotal.getText()),
+                txtDay.getText(),
+                Float.parseFloat(txtVAT.getText()),
+                2
+        );
+
+        orderController.add(order); //        add new Order from Form
+        orderController.fillToTable(); //        fill to Table
+        XFile.writeObject(pathOrder, orderController.getOrderList()); //        Save to file
+
+//        SAVE ORDER DETAILS
+        i = 0;
+        for (Product product:productController.getProductList()) {
+            String name = (String) tbOrder.getValueAt(i, 1);
+            if (product.getName().equals(name)) {
+                int quantity = (int) tbOrder.getValueAt(i, 3);
+                OrderDetail orderDetail = new OrderDetail(
+                        product, order, quantity
+                );
+                orderDetailsController.add(orderDetail);  // Add new OrderDetail from Form
+                XFile.writeObject(pathOrder, orderDetailsController.getOrderDetailList());  // Save to file
+            }
+            i++;
+        }
+//        Clear table
+        clearOrder();
+    }
+
 }
