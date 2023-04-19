@@ -75,6 +75,7 @@ public class ProductGUI extends JFrame {
     private JComboBox cbMonth;
     private JScrollPane scrollPaneBestSelling;
     private JTextField txtSearchProduct;
+    private JButton btnLogout;
     private JButton newButton;
     private JButton editButton;
     private JButton deleteButton;
@@ -101,7 +102,10 @@ public class ProductGUI extends JFrame {
 
     public ProductGUI(String title) throws HeadlessException {
         super(title);
+        this.setVisible(true);
         this.setContentPane(panelStaff);
+//        Exit icon x
+        this.setDefaultCloseOperation(JFrame.DO_NOTHING_ON_CLOSE);
         this.pack();
         int delay = 100;
 
@@ -109,6 +113,14 @@ public class ProductGUI extends JFrame {
         rdSale.setVisible(false);
         rdSoldOut.setVisible(false);
         tbStatics.setRowHeight(25);
+//        exit Program
+        this.addWindowListener(new WindowAdapter() {
+            @Override
+            public void windowClosing(WindowEvent e) {
+                exitProgram();
+            }
+        });
+        //        exit Program
 
         Timer timer = new Timer(delay, new ActionListener() {
             @Override
@@ -117,6 +129,13 @@ public class ProductGUI extends JFrame {
                 LocalDateTime now = LocalDateTime.now();
                 String formattedDateTime = now.format(formatter);
                 txtDay.setText(formattedDateTime);
+            }
+        });
+
+        btnLogout.addMouseListener(new MouseAdapter() {
+            @Override
+            public void mouseClicked(MouseEvent e) {
+                exitProgram();
             }
         });
 
@@ -156,6 +175,7 @@ public class ProductGUI extends JFrame {
                 (DefaultTableModel) tbProduct.getModel(),
                 (List<Product>) XFile.readObject(filePath)
         );
+        productController.fillToTable();
 
 //        ORDER DETAIL
 //        Create class ProductController to use method into it
@@ -251,7 +271,6 @@ public class ProductGUI extends JFrame {
                 clickRowInTable();
             }
         });
-
 //      Edit
         btnEditProduct.addMouseListener(new MouseAdapter() {
             @Override
@@ -263,12 +282,6 @@ public class ProductGUI extends JFrame {
             @Override
             public void mouseClicked(MouseEvent e) {
                 getProductImage();
-            }
-        });
-        tblManagement.addMouseListener(new MouseAdapter() {
-            @Override
-            public void mouseClicked(MouseEvent e) {
-                productController.fillToTable();
             }
         });
         btnCancelOrder.addMouseListener(new MouseAdapter() {
@@ -290,18 +303,7 @@ public class ProductGUI extends JFrame {
                 }
             }
         });
-        tbProduct.addPropertyChangeListener(new PropertyChangeListener() {
-            @Override
-            public void propertyChange(PropertyChangeEvent evt) {
-                JOptionPane.showMessageDialog(null, "You cannot edit directly in the Product table!", "Warming", JOptionPane.INFORMATION_MESSAGE);
-            }
-        });
-        tblManagement.addMouseListener(new MouseAdapter() {
-            @Override
-            public void mouseClicked(MouseEvent e) {
-                System.out.println("Load");
-            }
-        });
+
         btnSearchProOrder.addMouseListener(new MouseAdapter() {
             @Override
             public void mouseClicked(MouseEvent e) {
@@ -407,35 +409,38 @@ public class ProductGUI extends JFrame {
             txtTotalByMonth.setText("$" + total);
 
 //           BEST SELLING
-            if (getTempOrderLst.size() > 0) {
-                List<OrderDetail> orderDetailList = (List<OrderDetail>)XFile.readObject(pathOrderDetail);
-                List<OrderDetail> staticsTempList = new ArrayList<>(); //save order detail of bestselling
-                List<String> proIDList = new ArrayList<>(); //save order detail of bestselling
-                assert orderDetailList != null;  //check List empty or not
-                Map<String, Integer> bestSelling = new HashMap<>();
-
-                for (OrderDetail od:orderDetailList) {
-                    if (bestSelling.containsKey(od.getProduct().getId())) {  // return true when id existed
-                        bestSelling.replace(od.getProduct().getId(), bestSelling.get(od.getProduct().getId()) + od.getQuantity()); // update quantity
-                    } else {
-                        bestSelling.put(od.getProduct().getId(), od.getQuantity());  // add to Dictionary
-                    }
-                }
-
-                for (Map.Entry<String, Integer> temp:
-                        bestSelling.entrySet()) {
-                    System.out.println(temp.getKey() + ": " + temp.getValue());
-                }
-
-//                Get top
-                List<Map.Entry<String, Integer>> bestSellingLst = new ArrayList<Map.Entry<String, Integer>>(bestSelling.entrySet());
-                Collections.sort(bestSellingLst, (o1, o2) -> Integer.compare(o2.getValue(), o1.getValue())); // Sort the List object in descending order based on the values
-                top5BestSelling = bestSellingLst.subList(0, Math.min(bestSellingLst.size(), 5)); // Retrieve the top 5 entries from the List object
-
-                fillBestSelling();
-            }
+            top5BestSelling = getTop5BestSelling();
+            fillBestSelling();
         }
     }
+
+    private List<Map.Entry<String, Integer>> getTop5BestSelling() {
+        List<OrderDetail> orderDetailList = (List<OrderDetail>)XFile.readObject(pathOrderDetail);
+        List<OrderDetail> staticsTempList = new ArrayList<>(); //save order detail of bestselling
+        List<String> proIDList = new ArrayList<>(); //save order detail of bestselling
+        assert orderDetailList != null;  //check List empty or not
+        Map<String, Integer> bestSelling = new HashMap<>();
+
+        for (OrderDetail od:orderDetailList) {
+            if (bestSelling.containsKey(od.getProduct().getId())) {  // return true when id existed
+                bestSelling.replace(od.getProduct().getId(), bestSelling.get(od.getProduct().getId()) + od.getQuantity()); // update quantity
+            } else {
+                bestSelling.put(od.getProduct().getId(), od.getQuantity());  // add to Dictionary
+            }
+        }
+
+        for (Map.Entry<String, Integer> temp:
+                bestSelling.entrySet()) {
+            System.out.println(temp.getKey() + ": " + temp.getValue());
+        }
+
+//       Get top 5
+        List<Map.Entry<String, Integer>> bestSellingLst = new ArrayList<Map.Entry<String, Integer>>(bestSelling.entrySet());
+        Collections.sort(bestSellingLst, (o1, o2) -> Integer.compare(o2.getValue(), o1.getValue())); // Sort the List object in descending order based on the values
+
+        return bestSellingLst.subList(0, Math.min(bestSellingLst.size(), 5));
+    }
+
     private void fillBestSelling() {
         JPanel panelBestSelling = new JPanel();
         panelBestSelling.setLayout(new GridLayout(1,5));
@@ -525,10 +530,12 @@ public class ProductGUI extends JFrame {
             fillOrder(productList);
         }
 
-//        fillBestSelling();
+        top5BestSelling = getTop5BestSelling();
+        fillBestSelling();
     }
 
     private void fillOrder(List<Product> productList){
+        System.out.println("sok");
         for (Product product : productList) {
             if (product.isStatus()) {
 //                  Create layout product Panel
@@ -1122,5 +1129,13 @@ public class ProductGUI extends JFrame {
         createUIComponents();
     }
 
-
+    private void exitProgram() {
+        int answer = JOptionPane.showConfirmDialog(this, "Do you want to Logout", "Exit", JOptionPane.YES_NO_OPTION, JOptionPane.QUESTION_MESSAGE);
+        if (answer == JOptionPane.YES_OPTION){
+            JFrame login = new LoginGUI("Login");
+            login.setVisible(true);
+            login.setLocationRelativeTo(null);
+            dispose();
+        }
+    }
 }
