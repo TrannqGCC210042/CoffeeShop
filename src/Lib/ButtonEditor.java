@@ -21,7 +21,6 @@ public class ButtonEditor extends AbstractCellEditor implements TableCellRendere
         button.setBackground(bg);
         button.setForeground(Color.white);
         button.setFont(new Font("Century Schoolbook", Font.PLAIN, 14));
-        button.setActionCommand("SP01");
     }
 
     public Object getCellEditorValue() {

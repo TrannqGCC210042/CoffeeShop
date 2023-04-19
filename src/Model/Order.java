@@ -1,16 +1,20 @@
 package Model;
 
+import Controller.OrderController;
+import Lib.XFile;
+
 import java.io.Serializable;
 import java.util.Date;
+import java.util.List;
 
 public class Order implements Serializable {
-    private static int step = 0;
+    String pathOrder = "src\\File\\orders.dat";
+
     private int id;
     private float total;
-    private String date;
+    private Date date;
     private float vat;
     private int waitingCardNumber;
-    private boolean status;
 
     public int getId() {
         return id;
@@ -28,11 +32,11 @@ public class Order implements Serializable {
         this.total = total;
     }
 
-    public String getDate() {
+    public Date getDate() {
         return date;
     }
 
-    public void setDate(String date) {
+    public void setDate(Date date) {
         this.date = date;
     }
 
@@ -52,24 +56,17 @@ public class Order implements Serializable {
         this.waitingCardNumber = waitingCardNumber;
     }
 
-    public boolean isStatus() {
-        return status;
-    }
-
-    public void setStatus(boolean status) {
-        this.status = status;
-    }
-
-
     public Order() {
     }
 
-    public Order(float total, String date, float vat, int waitingCardNumber) {
-        this.id = ++step;
+    public Order(int id, float total, Date date, float vat, int waitingCardNumber) {
+//        for (Order order: (List<Order>) XFile.readObject(pathOrder)) {
+//
+//        }
+        this.id = id;
         this.total = total;
         this.date = date;
         this.vat = vat;
         this.waitingCardNumber = waitingCardNumber;
-        this.status = false;
     }
 }

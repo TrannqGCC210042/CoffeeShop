@@ -62,7 +62,25 @@ public class ProductController {
             tableProductModel.addRow(rowObj);
         }
     }
+    public void fillToTable(List<Product> productList) {
+        tableProductModel.setRowCount(0);
+        for (Product product: productList) {
+            String status = "";
 
+            if (product.isStatus()) {
+                status = "Sale";
+            }
+            else {
+                status = "Out of Stock";
+            }
+
+            Object[] rowObj = new Object[] {
+                    product.getId(), product.getName(), product.getIngredient(), product.getPrice(), product.getQuantity(), status, product.getImage()
+            };
+
+            tableProductModel.addRow(rowObj);
+        }
+    }
     public void addProduct(Product product) {
         productList.add(product);
     }
@@ -94,5 +112,17 @@ public class ProductController {
     public void deleteAllProduct() {
         productList.removeAll(productList);
     }
-
+    public void updateQtyProductLst(Product product) {
+        for (Product p: productList) {
+            if (p.getId().equals(product.getId())) {
+                p.setName(product.getName());
+                p.setIngredient(product.getIngredient());
+                p.setPrice(product.getPrice());
+                p.setQuantity(product.getQuantity());
+                p.setStatus(product.isStatus());
+                p.setImage(product.getImage());
+                break;
+            }
+        }
+    }
 }

@@ -10,9 +10,7 @@ public class Main {
 //        JFrame frame = new LoginGUI("Login");
 //        JFrame frame = new AdminGUI("Management Staff");
         JFrame frame = new ProductGUI("Management Product");
-
         frame.setLocationRelativeTo(null);
+        frame.setVisible(true);
     }
-
-
 }

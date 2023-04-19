@@ -57,7 +57,25 @@ public class StaffController {
         }
     }
 
+    public void fillToTable(List<Account> accountList) {
+        tableStaffModel.setRowCount(0);
+        for (Account account: accountList) {
+            String gender = "";
 
+            if (account.isGender()) {
+                gender = "Female";
+            }
+            else {
+                gender = "Male";
+            }
+
+            Object[] rowObj = new Object[] {
+                    account.getUsername(), account.getPassword(), account.getFullName(), gender, account.getPhone(), account.getAddress()
+            };
+
+            tableStaffModel.addRow(rowObj);
+        }
+    }
     public void add(Account account) {
         accountList.add(account);
     }

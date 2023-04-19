@@ -3,17 +3,13 @@ package View;
 import Controller.StaffController;
 import Lib.XFile;
 import Model.Account;
-import Model.Product;
 
 import javax.swing.*;
 import javax.swing.table.DefaultTableModel;
 import java.awt.*;
-import java.awt.event.MouseAdapter;
-import java.awt.event.MouseEvent;
+import java.awt.event.*;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.regex.Matcher;
-import java.util.regex.Pattern;
 
 public class AdminGUI extends JFrame{
     private JPanel panelAdmin;
@@ -37,13 +33,13 @@ public class AdminGUI extends JFrame{
     private JLabel errorStaffPhone;
     private JLabel errorStaffAddress;
     private JButton btnEditStaff;
-    private JTextField txtSearch;
+    private JTextField txtSearchStaff;
     private JButton btnSearchStaff;
 
     String filePath = "src\\File\\staffs.dat";
     DefaultTableModel tableStaffModel;
     List<Account> searchAccountLst;
-
+    int click = -1;
     int row = -1;
     StaffController staffController;
     public AdminGUI(String title){
@@ -105,23 +101,41 @@ public class AdminGUI extends JFrame{
                 clickRowInTable();
             }
         });
+
         btnSearchStaff.addMouseListener(new MouseAdapter() {
             @Override
             public void mouseClicked(MouseEvent e) {
-                search();
+                if (!txtSearchStaff.getText().equals("") && click == 1 && !txtSearchStaff.getText().equals(" ")) {
+                    search();
+                }else {
+                    txtSearchStaff.setText("Search by name");
+                    JOptionPane.showMessageDialog(null, "Please enter a name to search.");
+                }
+            }
+        });
+        txtSearchStaff.addMouseListener(new MouseAdapter() {
+            @Override
+            public void mouseClicked(MouseEvent e) {
+                txtSearchStaff.setText("");
+                click = 1;
             }
         });
     }
     private void search() {
-        searchAccountLst = new ArrayList<>();
-        for(int i = 0; i < tbStaff.getRowCount(); i++){//For each row
-            for(int j = 0; j < tbStaff.getColumnCount(); j++){//For each column in that row
-                if(tbStaff.getModel().getValueAt(i, j).equals(txtSearch.getText())){//Search the model
+        List<Account> accountList = new ArrayList<>();
 
-                }
-            }//For loop inner
-        }//For loop outer
+        for (Account account: staffController.getAccountList()) {
+            if (account.getFullName().toUpperCase().contains(txtSearchStaff.getText().toUpperCase())) {
+                accountList.add(account);
+            }
+        }
 
+        if (accountList.size() > 0) {
+            staffController.fillToTable(accountList);
+        }else {
+            JOptionPane.showMessageDialog(null, "Cannot find name \"" + txtSearchStaff.getText() + "\"", "Error", JOptionPane.ERROR_MESSAGE);
+            System.out.println("Not found");
+        }
     }
 
     //    Edit Product
@@ -263,11 +277,15 @@ public class AdminGUI extends JFrame{
             if (!isDuplicateID()) {
                 temp = false;
             }
+            //        Phone
+            if (!isValidPhone(action)) {
+                temp = false;
+            }
         }
 
         if (txtUsername.getText().equals("")) {
             errorStaffIUsername.setForeground(Color.red);
-            errorStaffIUsername.setText("This field cannot be empty");
+            errorStaffIUsername.setText("This field cannot be empty.");
 
             temp = false;
         }else if (!txtUsername.getText().matches(regLetterAndNumber)) {
@@ -285,7 +303,7 @@ public class AdminGUI extends JFrame{
 //      Password
         if (txtPassword.getText().equals("")) {
             errorStaffPassword.setForeground(Color.red);
-            errorStaffPassword.setText("This field cannot be empty");
+            errorStaffPassword.setText("This field cannot be empty.");
 
             temp = false;
         }else if (txtPassword.getText().length() < 6) {
@@ -298,26 +316,35 @@ public class AdminGUI extends JFrame{
 //        Full name
         if (txtFullname.getText().equals("")) {
             errorStaffName.setForeground(Color.red);
-            errorStaffName.setText("This field cannot be empty");
+            errorStaffName.setText("This field cannot be empty.");
 
             temp = false;
         }
 
         if (txtPhone.getText().equals("")) {
             errorStaffPhone.setForeground(Color.red);
-            errorStaffPhone.setText("This field cannot be empty");
+            errorStaffPhone.setText("This field cannot be empty.");
+
+            temp = false;
+        }
+
+        if (txtPhone.getText().length() != 10) {
+            errorStaffPhone.setForeground(Color.red);
+            errorStaffPhone.setText("Phone number must be 10 digits.");
 
             temp = false;
         }
 //        Phone
-        if (!isValidPhone()) {
-            temp = false;
+        if (action == "edit") {
+            if (!isValidPhone("edit")) {
+                temp = false;
+            }
         }
 
 //      address
         if (txtAddressStaff.getText().equals("")) {
             errorStaffAddress.setForeground(Color.red);
-            errorStaffAddress.setText("This field cannot be empty");
+            errorStaffAddress.setText("This field cannot be empty.");
 
             temp = false;
         }else if (!txtAddressStaff.getText().matches(regLetter)) {
@@ -331,8 +358,6 @@ public class AdminGUI extends JFrame{
 
             temp = false;
         }
-
-
 
         return temp;
     }
@@ -355,16 +380,30 @@ public class AdminGUI extends JFrame{
             return false;
         }
     }
-    public boolean isValidPhone(){
+    public boolean isValidPhone(String action){
         String temp = null;
 
-        for (Account account: staffController.getAccountList()) {
-            if (account.getPhone().equals(txtPhone.getText())) {
-                errorStaffPhone.setForeground(Color.red);
-                errorStaffPhone.setText("Phone number already exists.");
+        if (action.equals("add")) {
+            for (Account account: staffController.getAccountList()) {
+                if (account.getPhone().equals(txtPhone.getText())) {
+                    errorStaffPhone.setForeground(Color.red);
+                    errorStaffPhone.setText("Phone number already exists.");
 
-                temp = account.getPhone();
-                break;
+                    temp = account.getPhone();
+                    break;
+                }
+            }
+        }else {
+//            Update Staff
+            row = tbStaff.getSelectedRow();
+            for (Account account: staffController.getAccountList()) {
+                if (!account.getPhone().equals(tbStaff.getValueAt(row,4)) && account.getPhone().equals(txtPhone.getText())) {
+                    errorStaffPhone.setForeground(Color.red);
+                    errorStaffPhone.setText("Phone number already exists.");
+
+                    temp = account.getPhone();
+                    break;
+                }
             }
         }
 
@@ -391,6 +430,9 @@ public class AdminGUI extends JFrame{
         txtPhone.setText("");
         txtAddressStaff.setText("");
         clearError();
+
+        txtSearchStaff.setText("");
+        staffController.fillToTable();
     }
 
     private void clearError() {
