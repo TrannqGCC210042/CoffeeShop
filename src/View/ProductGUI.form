@@ -277,7 +277,7 @@
                       <component id="cbdff" class="javax.swing.JTextField" binding="txtProductName">
                         <constraints>
                           <grid row="4" column="0" row-span="1" col-span="2" vsize-policy="0" hsize-policy="6" anchor="8" fill="1" indent="2" use-parent-layout="false">
-                            <preferred-size width="120" height="25"/>
+                            <preferred-size width="150" height="25"/>
                           </grid>
                         </constraints>
                         <properties>
@@ -287,7 +287,7 @@
                           <text value=""/>
                         </properties>
                       </component>
-                      <component id="ceb4f" class="javax.swing.JLabel">
+                      <component id="ceb4f" class="javax.swing.JLabel" binding="lbProductID">
                         <constraints>
                           <grid row="0" column="0" row-span="1" col-span="2" vsize-policy="0" hsize-policy="0" anchor="8" fill="0" indent="2" use-parent-layout="false"/>
                         </constraints>
@@ -397,7 +397,7 @@
                       <component id="128fc" class="javax.swing.JTextField" binding="txtProductIngredient">
                         <constraints>
                           <grid row="7" column="0" row-span="1" col-span="2" vsize-policy="0" hsize-policy="6" anchor="8" fill="1" indent="2" use-parent-layout="false">
-                            <preferred-size width="120" height="25"/>
+                            <preferred-size width="150" height="25"/>
                           </grid>
                         </constraints>
                         <properties>
@@ -415,7 +415,7 @@
                           <text value=" Price *"/>
                         </properties>
                       </component>
-                      <grid id="41567" layout-manager="GridLayoutManager" row-count="5" column-count="2" same-size-horizontally="false" same-size-vertically="false" hgap="-1" vgap="-1">
+                      <grid id="41567" layout-manager="GridLayoutManager" row-count="7" column-count="2" same-size-horizontally="false" same-size-vertically="false" hgap="-1" vgap="-1">
                         <margin top="0" left="0" bottom="0" right="0"/>
                         <constraints>
                           <grid row="10" column="0" row-span="1" col-span="2" vsize-policy="3" hsize-policy="3" anchor="0" fill="3" indent="0" use-parent-layout="false"/>
@@ -442,7 +442,7 @@
                           <grid id="6d75d" layout-manager="GridLayoutManager" row-count="3" column-count="7" same-size-horizontally="false" same-size-vertically="false" hgap="-1" vgap="-1">
                             <margin top="0" left="0" bottom="0" right="0"/>
                             <constraints>
-                              <grid row="4" column="0" row-span="1" col-span="2" vsize-policy="3" hsize-policy="3" anchor="0" fill="3" indent="0" use-parent-layout="false"/>
+                              <grid row="6" column="0" row-span="1" col-span="2" vsize-policy="3" hsize-policy="3" anchor="0" fill="3" indent="0" use-parent-layout="false"/>
                             </constraints>
                             <properties>
                               <background color="-1"/>
@@ -584,17 +584,17 @@
                           </component>
                           <component id="a7f7d" class="javax.swing.JLabel">
                             <constraints>
-                              <grid row="2" column="0" row-span="1" col-span="1" vsize-policy="0" hsize-policy="0" anchor="8" fill="0" indent="2" use-parent-layout="false"/>
+                              <grid row="4" column="0" row-span="1" col-span="1" vsize-policy="0" hsize-policy="0" anchor="8" fill="0" indent="2" use-parent-layout="false"/>
                             </constraints>
                             <properties>
                               <font name="Georgia" size="12" style="1"/>
                               <text value="Image *"/>
                             </properties>
                           </component>
-                          <grid id="d17ae" layout-manager="GridLayoutManager" row-count="2" column-count="5" same-size-horizontally="false" same-size-vertically="false" hgap="-1" vgap="-1">
+                          <grid id="d17ae" layout-manager="GridLayoutManager" row-count="2" column-count="3" same-size-horizontally="false" same-size-vertically="false" hgap="-1" vgap="-1">
                             <margin top="0" left="0" bottom="0" right="0"/>
                             <constraints>
-                              <grid row="3" column="0" row-span="1" col-span="2" vsize-policy="3" hsize-policy="3" anchor="0" fill="3" indent="0" use-parent-layout="false"/>
+                              <grid row="5" column="0" row-span="1" col-span="2" vsize-policy="3" hsize-policy="3" anchor="0" fill="3" indent="0" use-parent-layout="false"/>
                             </constraints>
                             <properties>
                               <background color="-1"/>
@@ -627,33 +627,6 @@
                                   <text value=""/>
                                 </properties>
                               </component>
-                              <component id="7f8fc" class="javax.swing.JRadioButton" binding="rdSale">
-                                <constraints>
-                                  <grid row="0" column="3" row-span="1" col-span="1" vsize-policy="0" hsize-policy="3" anchor="8" fill="0" indent="2" use-parent-layout="false">
-                                    <preferred-size width="20" height="-1"/>
-                                  </grid>
-                                </constraints>
-                                <properties>
-                                  <background color="-1"/>
-                                  <font name="Georgia" size="12" style="0"/>
-                                  <foreground color="-16777216"/>
-                                  <inheritsPopupMenu value="false"/>
-                                  <selected value="true"/>
-                                  <text value="Sale"/>
-                                </properties>
-                              </component>
-                              <component id="d4bae" class="javax.swing.JRadioButton" binding="rdSoldOut">
-                                <constraints>
-                                  <grid row="0" column="4" row-span="1" col-span="1" vsize-policy="0" hsize-policy="3" anchor="8" fill="0" indent="1" use-parent-layout="false">
-                                    <preferred-size width="20" height="-1"/>
-                                  </grid>
-                                </constraints>
-                                <properties>
-                                  <background color="-1"/>
-                                  <font name="Georgia" size="12" style="0"/>
-                                  <text value="Out of Stock  "/>
-                                </properties>
-                              </component>
                               <component id="a6a8c" class="javax.swing.JButton" binding="btnUploadImage">
                                 <constraints>
                                   <grid row="0" column="2" row-span="1" col-span="1" vsize-policy="0" hsize-policy="3" anchor="0" fill="1" indent="0" use-parent-layout="false">
@@ -669,9 +642,37 @@
                               </component>
                             </children>
                           </grid>
-                          <component id="26d95" class="javax.swing.JLabel" binding="lbStatus">
+                          <component id="ee813" class="javax.swing.JRadioButton" binding="rdSale">
                             <constraints>
-                              <grid row="2" column="1" row-span="1" col-span="1" vsize-policy="0" hsize-policy="0" anchor="8" fill="0" indent="15" use-parent-layout="false"/>
+                              <grid row="3" column="0" row-span="1" col-span="1" vsize-policy="0" hsize-policy="3" anchor="8" fill="0" indent="2" use-parent-layout="false">
+                                <preferred-size width="50" height="-1"/>
+                              </grid>
+                            </constraints>
+                            <properties>
+                              <background color="-1"/>
+                              <font name="Georgia" size="12" style="0"/>
+                              <foreground color="-16777216"/>
+                              <inheritsPopupMenu value="false"/>
+                              <selected value="true"/>
+                              <text value="Sale"/>
+                            </properties>
+                          </component>
+                          <component id="be311" class="javax.swing.JRadioButton" binding="rdSoldOut">
+                            <constraints>
+                              <grid row="3" column="1" row-span="1" col-span="1" vsize-policy="0" hsize-policy="3" anchor="8" fill="0" indent="1" use-parent-layout="false">
+                                <preferred-size width="100" height="-1"/>
+                              </grid>
+                            </constraints>
+                            <properties>
+                              <background color="-1"/>
+                              <font name="Georgia" size="12" style="0"/>
+                              <foreground color="-16777216"/>
+                              <text value="Out of Stock  "/>
+                            </properties>
+                          </component>
+                          <component id="db268" class="javax.swing.JLabel" binding="lbStatus">
+                            <constraints>
+                              <grid row="2" column="0" row-span="1" col-span="1" vsize-policy="0" hsize-policy="0" anchor="8" fill="0" indent="2" use-parent-layout="false"/>
                             </constraints>
                             <properties>
                               <font name="Georgia" size="12" style="1"/>
@@ -683,7 +684,7 @@
                       <component id="674b" class="javax.swing.JTextField" binding="txtProductID">
                         <constraints>
                           <grid row="1" column="0" row-span="1" col-span="2" vsize-policy="0" hsize-policy="6" anchor="8" fill="1" indent="2" use-parent-layout="false">
-                            <preferred-size width="120" height="25"/>
+                            <preferred-size width="150" height="25"/>
                           </grid>
                         </constraints>
                         <properties>
@@ -822,6 +823,7 @@
                           </grid>
                         </constraints>
                         <properties>
+                          <background color="-1"/>
                           <enabled value="true"/>
                         </properties>
                         <border type="none"/>
@@ -871,6 +873,26 @@
                           <text value="$300"/>
                         </properties>
                       </component>
+                      <component id="ea42d" class="javax.swing.JLabel">
+                        <constraints>
+                          <grid row="1" column="1" row-span="1" col-span="1" vsize-policy="0" hsize-policy="0" anchor="8" fill="0" indent="2" use-parent-layout="false"/>
+                        </constraints>
+                        <properties>
+                          <font name="Georgia" size="14" style="1"/>
+                          <text value="Sort by: "/>
+                        </properties>
+                      </component>
+                      <grid id="a155c" layout-manager="GridLayoutManager" row-count="1" column-count="1" same-size-horizontally="false" same-size-vertically="false" hgap="-1" vgap="-1">
+                        <margin top="0" left="0" bottom="0" right="0"/>
+                        <constraints>
+                          <grid row="6" column="1" row-span="1" col-span="1" vsize-policy="3" hsize-policy="3" anchor="0" fill="3" indent="0" use-parent-layout="false"/>
+                        </constraints>
+                        <properties>
+                          <background color="-1"/>
+                        </properties>
+                        <border type="empty"/>
+                        <children/>
+                      </grid>
                       <component id="7645a" class="javax.swing.JComboBox" binding="cbMonth">
                         <constraints>
                           <grid row="1" column="2" row-span="1" col-span="1" vsize-policy="0" hsize-policy="2" anchor="8" fill="1" indent="0" use-parent-layout="false"/>
@@ -897,26 +919,6 @@
                           </model>
                         </properties>
                       </component>
-                      <component id="ea42d" class="javax.swing.JLabel">
-                        <constraints>
-                          <grid row="1" column="1" row-span="1" col-span="1" vsize-policy="0" hsize-policy="0" anchor="8" fill="0" indent="2" use-parent-layout="false"/>
-                        </constraints>
-                        <properties>
-                          <font name="Georgia" size="14" style="1"/>
-                          <text value="Sort by: "/>
-                        </properties>
-                      </component>
-                      <grid id="a155c" layout-manager="GridLayoutManager" row-count="1" column-count="1" same-size-horizontally="false" same-size-vertically="false" hgap="-1" vgap="-1">
-                        <margin top="0" left="0" bottom="0" right="0"/>
-                        <constraints>
-                          <grid row="6" column="1" row-span="1" col-span="1" vsize-policy="3" hsize-policy="3" anchor="0" fill="3" indent="0" use-parent-layout="false"/>
-                        </constraints>
-                        <properties>
-                          <background color="-1"/>
-                        </properties>
-                        <border type="empty"/>
-                        <children/>
-                      </grid>
                     </children>
                   </grid>
                 </children>

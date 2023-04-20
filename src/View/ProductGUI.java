@@ -76,9 +76,11 @@ public class ProductGUI extends JFrame {
     private JScrollPane scrollPaneBestSelling;
     private JTextField txtSearchProduct;
     private JButton btnLogout;
+    private JLabel lbProductID;
     private JButton newButton;
     private JButton editButton;
     private JButton deleteButton;
+    JSpinner spinner;
     String filePath = "src\\File\\products.dat";
     String pathOrder = "src\\File\\orders.dat";
     String pathOrderDetail = "src\\File\\orderdetails.dat";
@@ -98,6 +100,7 @@ public class ProductGUI extends JFrame {
     List<Order> getTempOrderLst;
     List<Product> getBestSelling;
     List<Map.Entry<String, Integer>> top5BestSelling;
+    JPanel panelBestSelling;
     int month_number = 0;
 
     public ProductGUI(String title) throws HeadlessException {
@@ -349,6 +352,33 @@ public class ProductGUI extends JFrame {
                 clickPro = 1;
             }
         });
+        tblManagement.addMouseListener(new MouseAdapter() {
+            @Override
+            public void mouseClicked(MouseEvent e) {
+                spinner.setValue(0);
+                productPanel.removeAll();
+                fillOrder(productController.getProductList());
+
+                panelBestSelling.removeAll();
+                top5BestSelling = getTop5BestSelling();
+                fillBestSelling();
+            }
+        });
+        tbStatics.addContainerListener(new ContainerAdapter() {
+            @Override
+            public void componentAdded(ContainerEvent e) {
+                JOptionPane.showMessageDialog(null, "You are not allowed to enter data directly on the table.", "Warning", JOptionPane.WARNING_MESSAGE);
+
+            }
+        });
+        txtSearchProduct.addMouseMotionListener(new MouseMotionAdapter() {
+        });
+        txtSearchProduct.addMouseListener(new MouseAdapter() {
+            @Override
+            public void mouseEntered(MouseEvent e) {
+                txtSearchProduct.setText("");
+            }
+        });
     }
 
     private void searchProOrder() {
@@ -361,6 +391,7 @@ public class ProductGUI extends JFrame {
         }
 
         if (productList.size() > 0) {
+            productPanel.removeAll();
             fillOrder(productList);
         }else {
             JOptionPane.showMessageDialog(null, "Cannot find name \"" + txtSearchProOrder.getText() + "\"", "Error", JOptionPane.ERROR_MESSAGE);
@@ -382,11 +413,12 @@ public class ProductGUI extends JFrame {
         }else {
             JOptionPane.showMessageDialog(null, "Cannot find name \"" + txtSearchProduct.getText() + "\"", "Error", JOptionPane.ERROR_MESSAGE);
             System.out.println("Not found");
+            txtSearchProduct.setText("Search by name");
+
         }
     }
     private void fillStatics() {
         List<Order> orderList = (List<Order>)XFile.readObject(pathOrder);
-
         if (orderList != null) {
 //           SORT BY
 //           Display data when sort by. Sort by: default current month
@@ -410,6 +442,7 @@ public class ProductGUI extends JFrame {
 
 //           BEST SELLING
             top5BestSelling = getTop5BestSelling();
+            panelBestSelling.removeAll();
             fillBestSelling();
         }
     }
@@ -418,20 +451,20 @@ public class ProductGUI extends JFrame {
         List<OrderDetail> orderDetailList = (List<OrderDetail>)XFile.readObject(pathOrderDetail);
         List<OrderDetail> staticsTempList = new ArrayList<>(); //save order detail of bestselling
         List<String> proIDList = new ArrayList<>(); //save order detail of bestselling
-        assert orderDetailList != null;  //check List empty or not
         Map<String, Integer> bestSelling = new HashMap<>();
+        String monthName = cbMonth.getSelectedItem().toString();
+        int monthNumber = XUtils.convertMonth(monthName);
 
-        for (OrderDetail od:orderDetailList) {
-            if (bestSelling.containsKey(od.getProduct().getId())) {  // return true when id existed
-                bestSelling.replace(od.getProduct().getId(), bestSelling.get(od.getProduct().getId()) + od.getQuantity()); // update quantity
-            } else {
-                bestSelling.put(od.getProduct().getId(), od.getQuantity());  // add to Dictionary
+        if (orderDetailList != null && orderDetailList.size() > 0) {
+            for (OrderDetail od:orderDetailList) {
+                if (XUtils.convertDatetoMonthInteger(od.getOrder().getDate()).equals(String.valueOf(monthNumber))) {
+                    if (bestSelling.containsKey(od.getProduct().getId())) {  // return true when id existed
+                        bestSelling.replace(od.getProduct().getId(), bestSelling.get(od.getProduct().getId()) + od.getQuantity()); // update quantity
+                    } else {
+                        bestSelling.put(od.getProduct().getId(), od.getQuantity());  // add to Dictionary
+                    }
+                }
             }
-        }
-
-        for (Map.Entry<String, Integer> temp:
-                bestSelling.entrySet()) {
-            System.out.println(temp.getKey() + ": " + temp.getValue());
         }
 
 //       Get top 5
@@ -442,11 +475,6 @@ public class ProductGUI extends JFrame {
     }
 
     private void fillBestSelling() {
-        JPanel panelBestSelling = new JPanel();
-        panelBestSelling.setLayout(new GridLayout(1,5));
-
-        scrollPaneBestSelling = new JScrollPane(panelBestSelling, ScrollPaneConstants.VERTICAL_SCROLLBAR_AS_NEEDED, ScrollPaneConstants.HORIZONTAL_SCROLLBAR_AS_NEEDED);
-        scrollPaneBestSelling.setPreferredSize(new Dimension(2000, 1000));
         List<Product> productList = (List<Product>)XFile.readObject(filePath);
         if (productList != null) {
             for (Product product : productList) {
@@ -466,8 +494,8 @@ public class ProductGUI extends JFrame {
                         JPanel image = new JPanel();
                         image.setBackground(Color.white); // Set background
 
-                        Border lineBorder = BorderFactory.createLineBorder(Color.black);
-                        image.setBorder(lineBorder); // Set border for panel
+//                        Border lineBorder = BorderFactory.createLineBorder(Color.black);
+//                        image.setBorder(lineBorder); // Set border for panel
 
                         Image img = new ImageIcon("src/Images/" + product.getImage()).getImage().getScaledInstance(130, 130, Image.SCALE_DEFAULT);
                         ImageIcon icon = new ImageIcon(img);
@@ -512,6 +540,8 @@ public class ProductGUI extends JFrame {
                         panel.add(nameAndItem, bagConstraints);
 
                         panelBestSelling.add(panel);
+                        revalidate();
+                        repaint();
                     }
                 }
             }
@@ -529,13 +559,14 @@ public class ProductGUI extends JFrame {
         if (productList != null) {
             fillOrder(productList);
         }
+        panelBestSelling = new JPanel();
+        panelBestSelling.setLayout(new GridLayout(1,5));
 
-        top5BestSelling = getTop5BestSelling();
-        fillBestSelling();
+        scrollPaneBestSelling = new JScrollPane(panelBestSelling, ScrollPaneConstants.VERTICAL_SCROLLBAR_AS_NEEDED, ScrollPaneConstants.HORIZONTAL_SCROLLBAR_AS_NEEDED);
+        scrollPaneBestSelling.setPreferredSize(new Dimension(2000, 1000));
     }
 
     private void fillOrder(List<Product> productList){
-        System.out.println("sok");
         for (Product product : productList) {
             if (product.isStatus()) {
 //                  Create layout product Panel
@@ -593,7 +624,7 @@ public class ProductGUI extends JFrame {
                 lbQty.setFont(new Font("Georgia", Font.PLAIN, 13));
 
                 SpinnerModel sm = new SpinnerNumberModel(0, 0, product.getQuantity(), 1);
-                JSpinner spinner = new JSpinner(sm);
+                spinner = new JSpinner(sm);
                 spinner.setFont(new Font("Century Schoolbook", Font.PLAIN, 13));
                 spinner.setPreferredSize(new Dimension(100, 23));
 
@@ -648,7 +679,9 @@ public class ProductGUI extends JFrame {
                 gbc.gridwidth = 2;
                 layoutProductPanel.add(addCart, gbc);
 
-                productPanel.add(layoutProductPanel);;
+                productPanel.add(layoutProductPanel);
+                repaint();
+                revalidate();
             }
         }
     }
@@ -709,10 +742,8 @@ public class ProductGUI extends JFrame {
             rdSale.setVisible(true);
             rdSoldOut.setVisible(true);
 
-            String id = (String) tbProduct.getValueAt(row, 0);
-            txtProductID.setText(id);
-            txtProductID.setEnabled(false);
-            txtProductID.setToolTipText("You cannot update ID");
+            txtProductID.setVisible(false);
+            lbProductID.setVisible(false);
 
             String name = (String) tbProduct.getValueAt(row, 1);
             txtProductName.setText(name);
@@ -818,6 +849,8 @@ public class ProductGUI extends JFrame {
                 XFile.writeObject(filePath, productController.getProductList());
 
                 clearInput();
+                JOptionPane.showMessageDialog(null, "A product was updated successfully", "Success", JOptionPane.INFORMATION_MESSAGE);
+
             }
         }
     }
@@ -847,6 +880,8 @@ public class ProductGUI extends JFrame {
             XFile.writeObject(filePath, productController.getProductList());
 //        Clear form
             clearInput();
+
+            JOptionPane.showMessageDialog(null, "A product was added successfully", "Success", JOptionPane.INFORMATION_MESSAGE);
         }
     }
 
@@ -860,7 +895,8 @@ public class ProductGUI extends JFrame {
 
         row = -1;
         btnAddProduct.setEnabled(true);
-        txtProductID.setEnabled(true);
+        txtProductID.setVisible(true);
+        lbProductID.setVisible(true);
         txtProductID.setToolTipText("");
 
         txtProductID.setText("");
@@ -872,6 +908,7 @@ public class ProductGUI extends JFrame {
         txtProductImage.setText("<Choose file>");
         lbProductImage.setIcon(null);
         clearErrorProduct();
+        productController.fillToTable();
     }
 
     private void clearErrorProduct() {
@@ -1094,7 +1131,6 @@ public class ProductGUI extends JFrame {
         );
 
         orderController.add(order); //        add new Order from Form
-        fillStatics(); //        fill to Table
         XFile.writeObject(pathOrder, orderController.getOrderList()); //        Save to file
 
 //        SAVE ORDER DETAILS
@@ -1126,6 +1162,7 @@ public class ProductGUI extends JFrame {
         clearOrder();
 //        fill to table Product a
         productController.fillToTable();
+        fillStatics(); //        fill to Table
         createUIComponents();
     }
 
