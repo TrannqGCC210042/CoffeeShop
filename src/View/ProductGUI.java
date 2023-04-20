@@ -64,7 +64,7 @@ public class ProductGUI extends JFrame {
     private JRadioButton rdSale;
     private JRadioButton rdSoldOut;
     private JLabel lbStatus;
-    private JTable tbStatics;
+    private JTable tbStatistic;
     private JTextField txtSearchProOrder;
     private JButton btnSearchProOrder;
     private JPanel panelStatistical;
@@ -106,6 +106,7 @@ public class ProductGUI extends JFrame {
         this.setContentPane(panelStaff);
         ImageIcon headerImg = new ImageIcon(new ImageIcon("src\\Images\\icon\\logo.png").getImage().getScaledInstance(80,60,Image.SCALE_DEFAULT));
         lbHeader.setIcon(headerImg);
+        tbStatistic.setRowHeight(30);
 //        Exit icon x
         this.setDefaultCloseOperation(JFrame.DO_NOTHING_ON_CLOSE);
         this.pack();
@@ -114,7 +115,7 @@ public class ProductGUI extends JFrame {
         lbStatus.setVisible(false);
         rdSale.setVisible(false);
         rdSoldOut.setVisible(false);
-        tbStatics.setRowHeight(25);
+        tbStatistic.setRowHeight(25);
 
 //        exit Program
         this.addWindowListener(new WindowAdapter() {
@@ -150,15 +151,14 @@ public class ProductGUI extends JFrame {
                 new String[]{
                         "ID", "Image", "Product Name", "Quantity", "Price"
                 }
-        );
-        tbOrder.setModel(tableOrderModel);
-
-        tbOrder.setModel(new DefaultTableModel(tbOrder.getModel().getRowCount(), tbOrder.getModel().getColumnCount()) {
-            @Override
+        ){
             public boolean isCellEditable(int row, int column) {
                 return false;
             }
-        });
+        };
+        tbOrder.setModel(tableOrderModel);
+
+
 //        Get image column and override cell DefaultTableCellRenderer class component method getTableCellRendererComponent
         tbOrder.setRowHeight(50);
         tbOrder.getColumnModel().getColumn(1).setCellRenderer(new ImageRenderer());
@@ -173,9 +173,7 @@ public class ProductGUI extends JFrame {
             new String[]{
                     "ID", "Name", "Ingredient", "Price", "Quantity", "Status", "Image"
                 }
-        ));
-        tbProduct.setModel(new DefaultTableModel(tbProduct.getModel().getRowCount(), tbProduct.getModel().getColumnCount()) {
-            @Override
+        ){
             public boolean isCellEditable(int row, int column) {
                 return false;
             }
@@ -201,26 +199,24 @@ public class ProductGUI extends JFrame {
 
 //        ORDER
 //        Set field name for table Order
-        tbStatics.setModel(new DefaultTableModel(
+        tbStatistic.setModel(new DefaultTableModel(
                 new Object[][]{ },
                 new String[]{
                         "Order ID", "Date", "VAT", "Total", "Waiting Card Number", "Order Detail"
                 }
-        ));
-        tbStatics.setModel(new DefaultTableModel(tbStatics.getModel().getRowCount(), tbStatics.getModel().getColumnCount()) {
-            @Override
+        ){
             public boolean isCellEditable(int row, int column) {
                 return false;
             }
         });
-        tbStatics.getColumnModel().getColumn(5).setCellRenderer(new ButtonEditor());
+        tbStatistic.getColumnModel().getColumn(5).setCellRenderer(new ButtonEditor());
 //        Create class ProductController to use method into it
         staticsController = new OrderController(  //fill by month
-                (DefaultTableModel) tbStatics.getModel()
+                (DefaultTableModel) tbStatistic.getModel()
         );
 
         orderController = new OrderController(  // add Order
-                (DefaultTableModel) tbStatics.getModel(),
+                (DefaultTableModel) tbStatistic.getModel(),
                 (List<Order>) XFile.readObject(pathOrder)
         );
 
@@ -229,15 +225,15 @@ public class ProductGUI extends JFrame {
         fillStatics();
 
 //        get ID for see more button
-        tbStatics.addMouseListener(new MouseAdapter() {
+        tbStatistic.addMouseListener(new MouseAdapter() {
             @Override
             public void mouseClicked(MouseEvent e) {
 //                get click index Column in table
-                if (tbStatics.getRowCount() > 0) {
-                    int column = tbStatics.columnAtPoint(e.getPoint());
+                if (tbStatistic.getRowCount() > 0) {
+                    int column = tbStatistic.columnAtPoint(e.getPoint());
                     if (column == 5) {
-                        int row = tbStatics.getSelectedRow();
-                        int idOrder = (int)tbStatics.getValueAt(row, 0) ;  //id order
+                        int row = tbStatistic.getSelectedRow();
+                        int idOrder = (int) tbStatistic.getValueAt(row, 0) ;  //id order
                         if (tempLst == null || tempLst.size() < 0) { tempLst = new ArrayList<>(); }
 
                         for (OrderDetail orderDetail:orderDetailsController.getOrderDetailList()) {
@@ -382,7 +378,7 @@ public class ProductGUI extends JFrame {
                 fillBestSelling();
             }
         });
-        tbStatics.addContainerListener(new ContainerAdapter() {
+        tbStatistic.addContainerListener(new ContainerAdapter() {
             @Override
             public void componentAdded(ContainerEvent e) {
                 JOptionPane.showMessageDialog(null, "You are not allowed to enter data directly on the table.", "Warning", JOptionPane.WARNING_MESSAGE);
@@ -510,7 +506,8 @@ public class ProductGUI extends JFrame {
 
 //                  Create image of product
                         JPanel image = new JPanel();
-                        image.setBackground(Color.white); // Set background
+                        Color bg = new Color(237, 237, 237);
+                        image.setBackground(bg); // Set background
 
 //                        Border lineBorder = BorderFactory.createLineBorder(Color.black);
 //                        image.setBorder(lineBorder); // Set border for panel
@@ -760,6 +757,8 @@ public class ProductGUI extends JFrame {
             rdSale.setVisible(true);
             rdSoldOut.setVisible(true);
 
+            String id = (String) tbProduct.getValueAt(row, 0);
+            txtProductID.setText(id);
             txtProductID.setVisible(false);
             lbProductID.setVisible(false);
 
@@ -1181,7 +1180,6 @@ public class ProductGUI extends JFrame {
 //        fill to table Product a
         productController.fillToTable();
         fillStatics(); //        fill to Table
-        createUIComponents();
     }
 
     private void exitProgram() {

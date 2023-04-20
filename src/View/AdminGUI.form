@@ -5,7 +5,7 @@
       <xy x="20" y="20" width="900" height="906"/>
     </constraints>
     <properties>
-      <preferredSize width="1000" height="450"/>
+      <preferredSize width="1000" height="500"/>
     </properties>
     <clientProperties>
       <html.disable class="java.lang.Boolean" value="false"/>
@@ -47,8 +47,8 @@
                       <grid row="1" column="0" row-span="1" col-span="1" vsize-policy="0" hsize-policy="3" anchor="0" fill="1" indent="0" use-parent-layout="false"/>
                     </constraints>
                     <properties>
-                      <background color="-16340559"/>
-                      <font name="Georgia" size="12" style="0"/>
+                      <background color="-5101520"/>
+                      <font name="Georgia" size="13" style="1"/>
                       <foreground color="-1"/>
                       <hideActionText value="false"/>
                       <text value="Clear"/>
@@ -64,8 +64,8 @@
                       <grid row="1" column="1" row-span="1" col-span="1" vsize-policy="0" hsize-policy="3" anchor="0" fill="1" indent="0" use-parent-layout="false"/>
                     </constraints>
                     <properties>
-                      <background color="-16340559"/>
-                      <font name="Georgia" size="12" style="0"/>
+                      <background color="-5101520"/>
+                      <font name="Georgia" size="13" style="1"/>
                       <foreground color="-1"/>
                       <hideActionText value="false"/>
                       <text value="Add"/>
@@ -76,8 +76,8 @@
                       <grid row="1" column="2" row-span="1" col-span="1" vsize-policy="0" hsize-policy="3" anchor="0" fill="1" indent="0" use-parent-layout="false"/>
                     </constraints>
                     <properties>
-                      <background color="-16340559"/>
-                      <font name="Georgia" size="12" style="0"/>
+                      <background color="-5101520"/>
+                      <font name="Georgia" size="13" style="1"/>
                       <foreground color="-1"/>
                       <text value="Edit"/>
                     </properties>
@@ -87,8 +87,8 @@
                       <grid row="1" column="3" row-span="1" col-span="1" vsize-policy="0" hsize-policy="3" anchor="0" fill="1" indent="0" use-parent-layout="false"/>
                     </constraints>
                     <properties>
-                      <background color="-16340559"/>
-                      <font name="Georgia" size="12" style="0"/>
+                      <background color="-5101520"/>
+                      <font name="Georgia" size="13" style="1"/>
                       <foreground color="-1"/>
                       <text value="Delete"/>
                     </properties>
@@ -98,8 +98,8 @@
                       <grid row="1" column="4" row-span="1" col-span="1" vsize-policy="0" hsize-policy="3" anchor="0" fill="1" indent="0" use-parent-layout="false"/>
                     </constraints>
                     <properties>
-                      <background color="-16340559"/>
-                      <font name="Georgia" size="12" style="0"/>
+                      <background color="-5101520"/>
+                      <font name="Georgia" size="13" style="1"/>
                       <foreground color="-1"/>
                       <text value="Delete All"/>
                     </properties>
@@ -181,6 +181,7 @@
                       </grid>
                     </constraints>
                     <properties>
+                      <disabledTextColor color="-2565928"/>
                       <doubleBuffered value="false"/>
                       <font name="Georgia" size="12" style="0"/>
                       <margin top="2" left="6" bottom="2" right="6"/>
@@ -394,7 +395,10 @@
                 <constraints>
                   <grid row="3" column="0" row-span="1" col-span="2" vsize-policy="7" hsize-policy="7" anchor="0" fill="3" indent="0" use-parent-layout="false"/>
                 </constraints>
-                <properties/>
+                <properties>
+                  <background color="-12828863"/>
+                  <foreground color="-16777216"/>
+                </properties>
                 <border type="none"/>
                 <children>
                   <component id="bd113" class="javax.swing.JTable" binding="tbStaff">
@@ -404,8 +408,12 @@
                       <autoscrolls value="true"/>
                       <focusCycleRoot value="false"/>
                       <font name="Times New Roman" size="15" style="0"/>
-                      <selectionBackground color="-16340559"/>
-                      <selectionForeground color="-1"/>
+                      <foreground color="-16777216"/>
+                      <gridColor color="-16777216"/>
+                      <rowSelectionAllowed value="true"/>
+                      <selectionBackground color="-2565928"/>
+                      <selectionForeground color="-12828863"/>
+                      <showHorizontalLines value="true"/>
                       <showVerticalLines value="true"/>
                     </properties>
                   </component>
@@ -433,7 +441,18 @@
                   <background color="-1"/>
                 </properties>
                 <border type="empty"/>
-                <children/>
+                <children>
+                  <component id="a66de" class="javax.swing.JLabel">
+                    <constraints>
+                      <grid row="0" column="0" row-span="1" col-span="1" vsize-policy="0" hsize-policy="0" anchor="8" fill="0" indent="2" use-parent-layout="false"/>
+                    </constraints>
+                    <properties>
+                      <font name="Georgia" size="12" style="0"/>
+                      <foreground color="-1"/>
+                      <text value="Error message"/>
+                    </properties>
+                  </component>
+                </children>
               </grid>
               <grid id="130f" layout-manager="GridLayoutManager" row-count="1" column-count="1" same-size-horizontally="false" same-size-vertically="false" hgap="-1" vgap="-1">
                 <margin top="0" left="0" bottom="0" right="0"/>
@@ -451,7 +470,7 @@
                   <grid row="1" column="1" row-span="1" col-span="1" vsize-policy="0" hsize-policy="3" anchor="0" fill="1" indent="0" use-parent-layout="false"/>
                 </constraints>
                 <properties>
-                  <background color="-16340559"/>
+                  <background color="-5101520"/>
                   <font name="Georgia" size="12" style="0"/>
                   <foreground color="-1"/>
                   <text value="Search"/>
@@ -474,7 +493,7 @@
           </hspacer>
         </children>
       </grid>
-      <grid id="95fd8" layout-manager="GridLayoutManager" row-count="3" column-count="3" same-size-horizontally="false" same-size-vertically="false" hgap="-1" vgap="-1">
+      <grid id="95fd8" layout-manager="GridLayoutManager" row-count="5" column-count="3" same-size-horizontally="false" same-size-vertically="false" hgap="-1" vgap="-1">
         <margin top="0" left="0" bottom="0" right="0"/>
         <constraints border-constraint="South"/>
         <properties>
@@ -482,13 +501,13 @@
         </properties>
         <border type="none"/>
         <children>
-          <component id="c5ec2" class="javax.swing.JButton">
+          <component id="c5ec2" class="javax.swing.JButton" binding="btnLogout">
             <constraints>
               <grid row="1" column="1" row-span="1" col-span="1" vsize-policy="0" hsize-policy="3" anchor="0" fill="1" indent="0" use-parent-layout="false"/>
             </constraints>
             <properties>
-              <background color="-16340559"/>
-              <font name="Georgia" size="13" style="0"/>
+              <background color="-5101520"/>
+              <font name="Georgia" size="13" style="1"/>
               <foreground color="-1"/>
               <text value="Logout"/>
             </properties>
@@ -512,7 +531,7 @@
           <grid id="9a1bb" layout-manager="GridLayoutManager" row-count="1" column-count="1" same-size-horizontally="false" same-size-vertically="false" hgap="-1" vgap="-1">
             <margin top="0" left="0" bottom="0" right="0"/>
             <constraints>
-              <grid row="2" column="1" row-span="1" col-span="1" vsize-policy="3" hsize-policy="3" anchor="0" fill="3" indent="0" use-parent-layout="false"/>
+              <grid row="4" column="1" row-span="1" col-span="1" vsize-policy="3" hsize-policy="3" anchor="0" fill="3" indent="0" use-parent-layout="false"/>
             </constraints>
             <properties>
               <background color="-1"/>
@@ -531,6 +550,102 @@
             <border type="empty"/>
             <children/>
           </grid>
+          <grid id="cd925" layout-manager="GridLayoutManager" row-count="1" column-count="3" same-size-horizontally="false" same-size-vertically="false" hgap="-1" vgap="-1">
+            <margin top="0" left="0" bottom="0" right="0"/>
+            <constraints>
+              <grid row="3" column="0" row-span="1" col-span="3" vsize-policy="3" hsize-policy="3" anchor="1" fill="1" indent="0" use-parent-layout="false">
+                <preferred-size width="-1" height="50"/>
+                <maximum-size width="-1" height="100"/>
+              </grid>
+            </constraints>
+            <properties>
+              <background color="-11323348"/>
+            </properties>
+            <border type="empty"/>
+            <children>
+              <component id="cded9" class="javax.swing.JLabel">
+                <constraints>
+                  <grid row="0" column="1" row-span="1" col-span="1" vsize-policy="0" hsize-policy="0" anchor="8" fill="0" indent="0" use-parent-layout="false"/>
+                </constraints>
+                <properties>
+                  <font name="Serif" size="14" style="0"/>
+                  <foreground color="-1"/>
+                  <requestFocusEnabled value="false"/>
+                  <text value="© 2023 Highlands Coffee. All rights reserved"/>
+                </properties>
+              </component>
+              <hspacer id="2e4d1">
+                <constraints>
+                  <grid row="0" column="0" row-span="1" col-span="1" vsize-policy="1" hsize-policy="6" anchor="0" fill="1" indent="0" use-parent-layout="false"/>
+                </constraints>
+              </hspacer>
+              <hspacer id="d69a2">
+                <constraints>
+                  <grid row="0" column="2" row-span="1" col-span="1" vsize-policy="1" hsize-policy="6" anchor="0" fill="1" indent="0" use-parent-layout="false"/>
+                </constraints>
+              </hspacer>
+            </children>
+          </grid>
+          <component id="ca009" class="javax.swing.JLabel">
+            <constraints>
+              <grid row="2" column="1" row-span="1" col-span="1" vsize-policy="0" hsize-policy="0" anchor="8" fill="0" indent="0" use-parent-layout="false"/>
+            </constraints>
+            <properties>
+              <font name="Georgia" size="12" style="1"/>
+              <foreground color="-1184275"/>
+              <text value="  *"/>
+            </properties>
+          </component>
+        </children>
+      </grid>
+      <grid id="4d09d" layout-manager="GridLayoutManager" row-count="3" column-count="3" same-size-horizontally="false" same-size-vertically="false" hgap="-1" vgap="-1">
+        <margin top="0" left="0" bottom="0" right="0"/>
+        <constraints border-constraint="North"/>
+        <properties>
+          <background color="-5101520"/>
+        </properties>
+        <border type="none"/>
+        <children>
+          <component id="430c6" class="javax.swing.JLabel" binding="lbHeader">
+            <constraints>
+              <grid row="1" column="1" row-span="1" col-span="1" vsize-policy="0" hsize-policy="0" anchor="8" fill="0" indent="0" use-parent-layout="false"/>
+            </constraints>
+            <properties>
+              <font name=".VnBahamasBH" size="26" style="1"/>
+              <foreground color="-1"/>
+              <text value="   HIGH LANDS"/>
+            </properties>
+          </component>
+          <hspacer id="b37b">
+            <constraints>
+              <grid row="1" column="2" row-span="1" col-span="1" vsize-policy="1" hsize-policy="6" anchor="0" fill="1" indent="0" use-parent-layout="false"/>
+            </constraints>
+          </hspacer>
+          <hspacer id="4b549">
+            <constraints>
+              <grid row="1" column="0" row-span="1" col-span="1" vsize-policy="1" hsize-policy="6" anchor="0" fill="1" indent="0" use-parent-layout="false"/>
+            </constraints>
+          </hspacer>
+          <component id="452eb" class="javax.swing.JLabel">
+            <constraints>
+              <grid row="2" column="1" row-span="1" col-span="2" vsize-policy="0" hsize-policy="0" anchor="8" fill="0" indent="2" use-parent-layout="false"/>
+            </constraints>
+            <properties>
+              <font name="Georgia" size="12" style="1"/>
+              <foreground color="-5101520"/>
+              <text value=" Product *"/>
+            </properties>
+          </component>
+          <component id="7dd94" class="javax.swing.JLabel">
+            <constraints>
+              <grid row="0" column="1" row-span="1" col-span="2" vsize-policy="0" hsize-policy="0" anchor="8" fill="0" indent="2" use-parent-layout="false"/>
+            </constraints>
+            <properties>
+              <font name="Georgia" size="12" style="1"/>
+              <foreground color="-5101520"/>
+              <text value=" Product *"/>
+            </properties>
+          </component>
         </children>
       </grid>
     </children>

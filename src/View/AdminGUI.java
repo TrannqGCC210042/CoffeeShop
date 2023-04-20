@@ -35,6 +35,8 @@ public class AdminGUI extends JFrame{
     private JButton btnEditStaff;
     private JTextField txtSearchStaff;
     private JButton btnSearchStaff;
+    private JLabel lbHeader;
+    private JButton btnLogout;
 
     String filePath = "src\\File\\staffs.dat";
     DefaultTableModel tableStaffModel;
@@ -47,6 +49,17 @@ public class AdminGUI extends JFrame{
         this.setVisible(true);
         this.setContentPane(panelAdmin);
         this.pack();
+        ImageIcon headerImg = new ImageIcon(new ImageIcon("src\\Images\\icon\\logo.png").getImage().getScaledInstance(80,60,Image.SCALE_DEFAULT));
+        lbHeader.setIcon(headerImg);
+        tbStaff.setRowHeight(30);
+        this.setDefaultCloseOperation(JFrame.DO_NOTHING_ON_CLOSE);
+
+        this.addWindowListener(new WindowAdapter() {
+            @Override
+            public void windowClosing(WindowEvent e) {
+                exitProgram();
+            }
+        });
 
 //        Set field name for table Product
         tbStaff.setModel(new DefaultTableModel(
@@ -54,10 +67,7 @@ public class AdminGUI extends JFrame{
                 new String[]{
                         "Username", "Password", "Full Name", "Gender", "Phone", "Address"
                 }
-        ));
-
-        tbStaff.setModel(new DefaultTableModel(tbStaff.getModel().getRowCount(), tbStaff.getModel().getColumnCount()) {
-            @Override
+        ){
             public boolean isCellEditable(int row, int column) {
                 return false;
             }
@@ -127,7 +137,24 @@ public class AdminGUI extends JFrame{
                 click = 1;
             }
         });
+        btnLogout.addMouseListener(new MouseAdapter() {
+            @Override
+            public void mouseClicked(MouseEvent e) {
+                exitProgram();
+            }
+        });
     }
+
+    private void exitProgram() {
+        int answer = JOptionPane.showConfirmDialog(this, "Do you want to Logout", "Exit", JOptionPane.YES_NO_OPTION, JOptionPane.QUESTION_MESSAGE);
+        if (answer == JOptionPane.YES_OPTION){
+            JFrame login = new LoginGUI("Login");
+            login.setVisible(true);
+            login.setLocationRelativeTo(null);
+            dispose();
+        }
+    }
+
     private void search() {
         List<Account> accountList = new ArrayList<>();
 

@@ -27,7 +27,7 @@
               </grid>
             </constraints>
             <properties>
-              <font name="Serif" size="14" style="1"/>
+              <font name="Serif" size="16" style="1"/>
             </properties>
             <border type="none"/>
             <children>
@@ -198,6 +198,10 @@
                                 <properties>
                                   <focusable value="true"/>
                                   <font name="Century Schoolbook" size="15" style="0"/>
+                                  <foreground color="-16777216"/>
+                                  <gridColor color="-16777216"/>
+                                  <selectionBackground color="-2565928"/>
+                                  <selectionForeground color="-12828863"/>
                                 </properties>
                               </component>
                             </children>
@@ -349,7 +353,7 @@
                               <grid row="0" column="1" row-span="1" col-span="1" vsize-policy="0" hsize-policy="3" anchor="0" fill="1" indent="0" use-parent-layout="false"/>
                             </constraints>
                             <properties>
-                              <background color="-16340559"/>
+                              <background color="-5101520"/>
                               <font name="Georgia" size="12" style="0"/>
                               <foreground color="-1"/>
                               <text value="Search"/>
@@ -381,10 +385,14 @@
                                   <focusTraversalPolicyProvider value="false"/>
                                   <focusable value="true"/>
                                   <font name="Georgia" size="14" style="0"/>
+                                  <foreground color="-16777216"/>
+                                  <gridColor color="-16777216"/>
                                   <opaque value="true"/>
                                   <preferredScrollableViewportSize width="1200" height="400"/>
                                   <rowMargin value="1"/>
                                   <rowSelectionAllowed value="true"/>
+                                  <selectionBackground color="-2565928"/>
+                                  <selectionForeground color="-12828863"/>
                                   <showHorizontalLines value="true"/>
                                   <updateSelectionOnSort value="false"/>
                                 </properties>
@@ -788,7 +796,7 @@
                         </properties>
                         <border type="none"/>
                         <children>
-                          <component id="12658" class="javax.swing.JTable" binding="tbStatics">
+                          <component id="12658" class="javax.swing.JTable" binding="tbStatistic">
                             <constraints/>
                             <properties>
                               <autoCreateRowSorter value="false"/>
@@ -803,10 +811,13 @@
                               <focusable value="true"/>
                               <font name="Georgia" size="14" style="0"/>
                               <foreground color="-16777216"/>
+                              <gridColor color="-16777216"/>
                               <opaque value="true"/>
                               <preferredScrollableViewportSize width="1200" height="400"/>
                               <rowMargin value="1"/>
                               <rowSelectionAllowed value="true"/>
+                              <selectionBackground color="-2565928"/>
+                              <selectionForeground color="-12828863"/>
                               <showHorizontalLines value="true"/>
                               <updateSelectionOnSort value="false"/>
                             </properties>
@@ -1089,6 +1100,8 @@
     <group name="btnStatus">
       <member id="7f8fc"/>
       <member id="d4bae"/>
+      <member id="ee813"/>
+      <member id="be311"/>
     </group>
   </buttonGroups>
 </form>
