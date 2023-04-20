@@ -7,7 +7,6 @@ import Lib.ButtonEditor;
 import Lib.ImageRenderer;
 import Lib.XFile;
 import Lib.XUtils;
-import Model.Account;
 import Model.Order;
 import Model.OrderDetail;
 import Model.Product;
@@ -20,8 +19,6 @@ import javax.swing.table.DefaultTableModel;
 import java.awt.*;
 import java.awt.event.*;
 import java.awt.image.BufferedImage;
-import java.beans.PropertyChangeEvent;
-import java.beans.PropertyChangeListener;
 import java.io.File;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
@@ -77,10 +74,10 @@ public class ProductGUI extends JFrame {
     private JTextField txtSearchProduct;
     private JButton btnLogout;
     private JLabel lbProductID;
+    private JLabel lbHeader;
     private JButton newButton;
     private JButton editButton;
     private JButton deleteButton;
-    JSpinner spinner;
     String filePath = "src\\File\\products.dat";
     String pathOrder = "src\\File\\orders.dat";
     String pathOrderDetail = "src\\File\\orderdetails.dat";
@@ -107,6 +104,8 @@ public class ProductGUI extends JFrame {
         super(title);
         this.setVisible(true);
         this.setContentPane(panelStaff);
+        ImageIcon headerImg = new ImageIcon(new ImageIcon("src\\Images\\icon\\logo.png").getImage().getScaledInstance(80,60,Image.SCALE_DEFAULT));
+        lbHeader.setIcon(headerImg);
 //        Exit icon x
         this.setDefaultCloseOperation(JFrame.DO_NOTHING_ON_CLOSE);
         this.pack();
@@ -116,6 +115,7 @@ public class ProductGUI extends JFrame {
         rdSale.setVisible(false);
         rdSoldOut.setVisible(false);
         tbStatics.setRowHeight(25);
+
 //        exit Program
         this.addWindowListener(new WindowAdapter() {
             @Override
@@ -152,6 +152,13 @@ public class ProductGUI extends JFrame {
                 }
         );
         tbOrder.setModel(tableOrderModel);
+
+        tbOrder.setModel(new DefaultTableModel(tbOrder.getModel().getRowCount(), tbOrder.getModel().getColumnCount()) {
+            @Override
+            public boolean isCellEditable(int row, int column) {
+                return false;
+            }
+        });
 //        Get image column and override cell DefaultTableCellRenderer class component method getTableCellRendererComponent
         tbOrder.setRowHeight(50);
         tbOrder.getColumnModel().getColumn(1).setCellRenderer(new ImageRenderer());
@@ -167,6 +174,12 @@ public class ProductGUI extends JFrame {
                     "ID", "Name", "Ingredient", "Price", "Quantity", "Status", "Image"
                 }
         ));
+        tbProduct.setModel(new DefaultTableModel(tbProduct.getModel().getRowCount(), tbProduct.getModel().getColumnCount()) {
+            @Override
+            public boolean isCellEditable(int row, int column) {
+                return false;
+            }
+        });
 
 //        Get image column and override cell DefaultTableCellRenderer class component method getTableCellRendererComponent
         tbProduct.setRowHeight(100);
@@ -194,8 +207,13 @@ public class ProductGUI extends JFrame {
                         "Order ID", "Date", "VAT", "Total", "Waiting Card Number", "Order Detail"
                 }
         ));
+        tbStatics.setModel(new DefaultTableModel(tbStatics.getModel().getRowCount(), tbStatics.getModel().getColumnCount()) {
+            @Override
+            public boolean isCellEditable(int row, int column) {
+                return false;
+            }
+        });
         tbStatics.getColumnModel().getColumn(5).setCellRenderer(new ButtonEditor());
-
 //        Create class ProductController to use method into it
         staticsController = new OrderController(  //fill by month
                 (DefaultTableModel) tbStatics.getModel()
@@ -355,7 +373,7 @@ public class ProductGUI extends JFrame {
         tblManagement.addMouseListener(new MouseAdapter() {
             @Override
             public void mouseClicked(MouseEvent e) {
-                spinner.setValue(0);
+//                spinner.setValue(0);
                 productPanel.removeAll();
                 fillOrder(productController.getProductList());
 
@@ -481,7 +499,7 @@ public class ProductGUI extends JFrame {
                 if (top5BestSelling == null) {
                     break;
                 }
-                for (Map.Entry<String, Integer> top5 : top5BestSelling) { // Print the top 5 best selling
+                for (Map.Entry<String, Integer> top5 : top5BestSelling) { // Print the top 5 bestselling
                     if (top5.getKey().equals(product.getId()) && product.isStatus()) {
                         System.out.println("okla");
                         //      Create layout Best Selling Panel
@@ -624,7 +642,7 @@ public class ProductGUI extends JFrame {
                 lbQty.setFont(new Font("Georgia", Font.PLAIN, 13));
 
                 SpinnerModel sm = new SpinnerNumberModel(0, 0, product.getQuantity(), 1);
-                spinner = new JSpinner(sm);
+                JSpinner spinner = new JSpinner(sm);
                 spinner.setFont(new Font("Century Schoolbook", Font.PLAIN, 13));
                 spinner.setPreferredSize(new Dimension(100, 23));
 
@@ -654,7 +672,7 @@ public class ProductGUI extends JFrame {
 
 //                  Create add to cart button
                 JButton addCart = new JButton("Add To Cart");
-                Color bg = new Color(6, 169, 177);
+                Color bg = new Color(178, 40, 48);
                 addCart.setBackground(bg);
                 addCart.setForeground(Color.white);
                 addCart.setFont(new Font("Century Schoolbook", Font.PLAIN, 14));
@@ -1048,7 +1066,7 @@ public class ProductGUI extends JFrame {
                 if (id.equals(productID)) {
 //                    get old value in Order table
                     int oldQuantity = (Integer) tbOrder.getValueAt(i, 3);
-                    float oldPrice = (float) tbOrder.getValueAt(i, 4);
+//                    float oldPrice = (float) tbOrder.getValueAt(i, 4);
 
 //                    check new value is valid. If return value of method checkUpdateQuantityAndPrice = 0, error
                     int[] results = checkUpdateQuantityAndPrice(id, quantity, oldQuantity);

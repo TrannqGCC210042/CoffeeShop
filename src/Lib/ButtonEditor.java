@@ -17,7 +17,7 @@ public class ButtonEditor extends AbstractCellEditor implements TableCellRendere
     public ButtonEditor() {
         button = new JButton("See more >>");
 
-        Color bg = new Color(6, 169, 177);
+        Color bg = new Color(178, 40, 48);
         button.setBackground(bg);
         button.setForeground(Color.white);
         button.setFont(new Font("Century Schoolbook", Font.PLAIN, 14));

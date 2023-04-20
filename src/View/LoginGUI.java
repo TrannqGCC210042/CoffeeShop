@@ -18,8 +18,13 @@ public class LoginGUI extends JFrame{
     private JPasswordField txtPassword;
     private JButton btnLogin;
     private JLabel errorLogin;
+    private JLabel lbHeader;
+    private JPanel panelHeader;
+    private JLabel lbFooter;
     List<Account> accountList;
     String pathStaff = "src\\File\\staffs.dat";
+    Image icon = Toolkit.getDefaultToolkit().getImage("src\\Images\\icon\\titleLogo.png");
+
     public LoginGUI(String title) {
         super(title);
         this.setVisible(true);
@@ -28,6 +33,8 @@ public class LoginGUI extends JFrame{
 //      Exit icon x
         this.setDefaultCloseOperation(JFrame.DO_NOTHING_ON_CLOSE);
         this.pack();
+        ImageIcon headerImg = new ImageIcon(new ImageIcon("src\\Images\\icon\\logo.png").getImage().getScaledInstance(80,60,Image.SCALE_DEFAULT));
+        lbHeader.setIcon(headerImg);
 
         accountList = (List<Account>) XFile.readObject(pathStaff);
 
@@ -38,6 +45,7 @@ public class LoginGUI extends JFrame{
 
                 if (txtUser.getText().equals("admin") && txtPassword.getText().equals("admin123")){
                     AdminGUI adminPage = new AdminGUI("Admin page");
+                    adminPage.setIconImage(icon);
                     adminPage.setVisible(true);
                     adminPage.setLocationRelativeTo(null);
                     dispose();
@@ -45,6 +53,7 @@ public class LoginGUI extends JFrame{
 
                 if (userLogin(String.valueOf(txtUser.getText()), String.valueOf(txtPassword.getText()))){
                     ProductGUI staffPage = new ProductGUI("Staff page");
+                    staffPage.setIconImage(icon);
                     staffPage.setVisible(true);
                     staffPage.setLocationRelativeTo(null);
                     dispose();

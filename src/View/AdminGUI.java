@@ -56,6 +56,13 @@ public class AdminGUI extends JFrame{
                 }
         ));
 
+        tbStaff.setModel(new DefaultTableModel(tbStaff.getModel().getRowCount(), tbStaff.getModel().getColumnCount()) {
+            @Override
+            public boolean isCellEditable(int row, int column) {
+                return false;
+            }
+        });
+
 //      Use DefaultTableModel for processing table, and processing file
         staffController = new StaffController(
                 (DefaultTableModel) tbStaff.getModel(),
