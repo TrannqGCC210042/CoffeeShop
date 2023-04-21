@@ -463,8 +463,6 @@ public class ProductGUI extends JFrame {
 
     private List<Map.Entry<String, Integer>> getTop5BestSelling() {
         List<OrderDetail> orderDetailList = (List<OrderDetail>)XFile.readObject(pathOrderDetail);
-        List<OrderDetail> staticsTempList = new ArrayList<>(); //save order detail of bestselling
-        List<String> proIDList = new ArrayList<>(); //save order detail of bestselling
         Map<String, Integer> bestSelling = new HashMap<>();
         String monthName = cbMonth.getSelectedItem().toString();
         int monthNumber = XUtils.convertMonth(monthName);

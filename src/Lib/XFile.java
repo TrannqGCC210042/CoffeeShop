@@ -25,7 +25,7 @@ public class XFile {
             oos.writeObject(o);
             oos.close();
         } catch (Exception e) {
-            System.err.println(e);
+            System.out.println("Empty file!");
         }
     }
     public static BufferedImage readImage(File f){
@@ -35,7 +35,7 @@ public class XFile {
             try {
                 img = ImageIO.read(new File(f.getAbsolutePath()));
             } catch (IOException e) {
-                System.err.println(e);
+                System.out.println("Empty file!");
             }
         }
         return img;
@@ -50,7 +50,7 @@ public class XFile {
             try {
                 Files.copy(originalFile.toPath(), newFile.toPath());
             } catch (Exception e) {
-                System.err.println(e);
+                System.out.println("Empty file!");
             }
         }
     }
