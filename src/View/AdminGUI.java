@@ -20,9 +20,7 @@ public class AdminGUI extends JFrame{
     private JTextField txtUsername;
     private JTextField txtPassword;
     private JButton btnNewStaff;
-    private JButton editButton;
     private JButton btnDeleteAllStaff;
-
     private JButton btnAddStaff;
     private JButton btnDeleteStaff;
     private JTextField txtPhone;
@@ -37,10 +35,7 @@ public class AdminGUI extends JFrame{
     private JButton btnSearchStaff;
     private JLabel lbHeader;
     private JButton btnLogout;
-
     String filePath = "src\\File\\staffs.dat";
-    DefaultTableModel tableStaffModel;
-    List<Account> searchAccountLst;
     int click = -1;
     int row = -1;
     StaffController staffController;
@@ -303,9 +298,8 @@ public class AdminGUI extends JFrame{
 
     private boolean isValidInput(String action) {
         boolean temp = true;
-        String regPhone = "\\d{10}";
         String regLetterAndNumber = "\\w+";
-        String regLetter = "^[a-zA-Z\\s]*$";
+        String regLetter = "^[a-zA-Z,. ]*$";
 
         if (action == "add") {
             if (!isDuplicateID()) {
@@ -351,6 +345,16 @@ public class AdminGUI extends JFrame{
         if (txtFullname.getText().equals("")) {
             errorStaffName.setForeground(Color.red);
             errorStaffName.setText("This field cannot be empty.");
+
+            temp = false;
+        }else if (txtFullname.getText().matches(regLetter)) {
+            errorStaffName.setForeground(Color.red);
+            errorStaffName.setText("This field cannot contain the characters.");
+
+            temp = false;
+        }else if (txtFullname.getText().length() < 4) {
+            errorStaffName.setForeground(Color.red);
+            errorStaffName.setText("This field must contain more than 3 characters.");
 
             temp = false;
         }

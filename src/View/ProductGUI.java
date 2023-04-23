@@ -74,6 +74,7 @@ public class ProductGUI extends JFrame {
     private JButton btnLogout;
     private JLabel lbProductID;
     private JLabel lbHeader;
+    private JLabel lbSaleTotalByMonth;
     private JButton newButton;
     private JButton editButton;
     private JButton deleteButton;
@@ -97,12 +98,12 @@ public class ProductGUI extends JFrame {
     List<Product> getBestSelling;
     List<Map.Entry<String, Integer>> top5BestSelling;
     JPanel panelBestSelling;
-    int month_number = 0;
 
     public ProductGUI(String title) throws HeadlessException {
         super(title);
         this.setVisible(true);
         this.setContentPane(panelStaff);
+        this.setResizable(false);
         ImageIcon headerImg = new ImageIcon(new ImageIcon("src\\Images\\icon\\logo.png").getImage().getScaledInstance(80,60,Image.SCALE_DEFAULT));
         lbHeader.setIcon(headerImg);
         tbStatistic.setRowHeight(30);
@@ -238,7 +239,9 @@ public class ProductGUI extends JFrame {
         );
 
         Date formatDate = XUtils.convertStringtoDate(txtDay.getText());
-        cbMonth.setSelectedItem(XUtils.convertDatetoMonthName(formatDate));
+        String month = XUtils.convertDatetoMonthName(formatDate);
+        cbMonth.setSelectedItem(month);
+        lbSaleTotalByMonth.setText("Sale in " + month);
         fillStatics();
 
 //        get ID for see more button
@@ -279,7 +282,9 @@ public class ProductGUI extends JFrame {
         btnAddProduct.addMouseListener(new MouseAdapter() {
             @Override
             public void mouseClicked(MouseEvent e) {
-                add();
+                if (btnAddProduct.isEnabled()) {
+                    add();
+                }
             }
         });
 //        Delete one
@@ -361,6 +366,7 @@ public class ProductGUI extends JFrame {
             @Override
             public void itemStateChanged(ItemEvent e) {
                 if (e.getStateChange() == ItemEvent.SELECTED){
+                    lbSaleTotalByMonth.setText("Sale in " + cbMonth.getSelectedItem());
                     fillStatics();
                 }
             }
@@ -476,7 +482,6 @@ public class ProductGUI extends JFrame {
 
             float total = orderController.fillToTable(getTempOrderLst); //        Display table Statics and calculator total
             txtTotalByMonth.setText("$" + total);
-
 //           BEST SELLING
             top5BestSelling = getTop5BestSelling();
             panelBestSelling.removeAll();
@@ -892,7 +897,6 @@ public class ProductGUI extends JFrame {
 //    Add Product
     private void add() {
         if (isValidProduct("add")) {
-
             Product product = new Product(
                     txtProductID.getText(),
                     txtProductName.getText().toUpperCase(),
@@ -1117,14 +1121,14 @@ public class ProductGUI extends JFrame {
                 int tempQty = product.getQuantity() - newQuantity;
 
 //              If quantity < stock => temQty < 0
-                if (tempQty > 0 ) {
+                if (tempQty >= 0 ) {
                     grid[0] = newQuantity;
-                    grid[1] = product.getQuantity();
                 }else {
                     grid[0] = -1;
-                    grid[1] = product.getQuantity();
                 }
+                grid[1] = product.getQuantity();
             }
+            break;
         }
 
         return grid;

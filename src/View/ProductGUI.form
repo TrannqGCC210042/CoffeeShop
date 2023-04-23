@@ -8,7 +8,7 @@
     <properties>
       <maximumSize width="400" height="350"/>
       <minimumSize width="400" height="300"/>
-      <preferredSize width="1100" height="1000"/>
+      <preferredSize width="1100" height="800"/>
     </properties>
     <border type="none"/>
     <children>
@@ -876,13 +876,13 @@
                           </component>
                         </children>
                       </grid>
-                      <component id="28d36" class="javax.swing.JLabel">
+                      <component id="28d36" class="javax.swing.JLabel" binding="lbSaleTotalByMonth">
                         <constraints>
                           <grid row="5" column="1" row-span="1" col-span="1" vsize-policy="0" hsize-policy="0" anchor="0" fill="1" indent="2" use-parent-layout="false"/>
                         </constraints>
                         <properties>
                           <font name="Times New Roman" size="18" style="1"/>
-                          <text value="Sales in March"/>
+                          <text value="Sales in "/>
                         </properties>
                       </component>
                       <component id="5c21b" class="javax.swing.JTextArea" binding="txtTotalByMonth">
@@ -896,7 +896,7 @@
                           <enabled value="false"/>
                           <font name="Times New Roman" size="18" style="0"/>
                           <margin top="2" left="0" bottom="0" right="0"/>
-                          <text value="$300"/>
+                          <text value="$0"/>
                         </properties>
                       </component>
                       <component id="ea42d" class="javax.swing.JLabel">
