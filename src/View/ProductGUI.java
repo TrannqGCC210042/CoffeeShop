@@ -508,8 +508,8 @@ public class ProductGUI extends JFrame {
         }
 
 //       Get top 5
-        List<Map.Entry<String, Integer>> bestSellingLst = new ArrayList<Map.Entry<String, Integer>>(bestSelling.entrySet());
-        Collections.sort(bestSellingLst, (o1, o2) -> Integer.compare(o2.getValue(), o1.getValue())); // Sort the List object in descending order based on the values
+        List<Map.Entry<String, Integer>> bestSellingLst = new ArrayList<>(bestSelling.entrySet());
+        bestSellingLst.sort((o1, o2) -> Integer.compare(o2.getValue(), o1.getValue())); // Sort the List object in descending order based on the values
 
         return bestSellingLst.subList(0, Math.min(bestSellingLst.size(), 5));
     }
@@ -1157,8 +1157,6 @@ public class ProductGUI extends JFrame {
     }
 
     private void payment(int result) {
-        int a = orderController.getOrderList().size();
-        System.out.println("size" + a);
 //        SAVE ORDER
         Order order = new Order(
                 orderController.getOrderList().size() + 1,
@@ -1174,7 +1172,7 @@ public class ProductGUI extends JFrame {
 //        SAVE ORDER DETAILS
         for (int index = 0; index < tbOrder.getRowCount(); index++) {
             String id = String.valueOf(tbOrder.getValueAt(index, 0));
-            System.out.println(id);
+
             for (Product product:productController.getProductList()) {
                 if (product.getId().equals(id)) {
                     int quantity = (int) tbOrder.getValueAt(index, 3);
