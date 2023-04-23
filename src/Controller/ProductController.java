@@ -62,7 +62,7 @@ public class ProductController {
             tableProductModel.addRow(rowObj);
         }
     }
-    public void fillToTable(List<Product> productList) {
+    public void fillToTable(List<Product> productList) {  // using search
         tableProductModel.setRowCount(0);
         for (Product product: productList) {
             String status = "";

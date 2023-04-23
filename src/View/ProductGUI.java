@@ -3,10 +3,7 @@ package View;
 import Controller.OrderController;
 import Controller.OrderDetailsController;
 import Controller.ProductController;
-import Lib.ButtonEditor;
-import Lib.ImageRenderer;
-import Lib.XFile;
-import Lib.XUtils;
+import Lib.*;
 import Model.Order;
 import Model.OrderDetail;
 import Model.Product;
@@ -20,6 +17,8 @@ import java.awt.*;
 import java.awt.event.*;
 import java.awt.image.BufferedImage;
 import java.io.File;
+import java.math.RoundingMode;
+import java.text.DecimalFormat;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.util.*;
@@ -107,7 +106,6 @@ public class ProductGUI extends JFrame {
         ImageIcon headerImg = new ImageIcon(new ImageIcon("src\\Images\\icon\\logo.png").getImage().getScaledInstance(80,60,Image.SCALE_DEFAULT));
         lbHeader.setIcon(headerImg);
         tbStatistic.setRowHeight(30);
-//        Exit icon x
         this.setDefaultCloseOperation(JFrame.DO_NOTHING_ON_CLOSE);
         this.pack();
         int delay = 100;
@@ -149,7 +147,7 @@ public class ProductGUI extends JFrame {
         tableOrderModel = new DefaultTableModel(
                 new Object[][]{ },
                 new String[]{
-                        "ID", "Image", "Product Name", "Quantity", "Price"
+                        "ID", "Image", "Product Name", "Quantity", "Price", "Remove"
                 }
         ){
             public boolean isCellEditable(int row, int column) {
@@ -157,12 +155,31 @@ public class ProductGUI extends JFrame {
             }
         };
         tbOrder.setModel(tableOrderModel);
-
+        tbOrder.getColumnModel().getColumn(5).setCellRenderer(new ButtonRemove());
 
 //        Get image column and override cell DefaultTableCellRenderer class component method getTableCellRendererComponent
         tbOrder.setRowHeight(50);
+        tbOrder.setBackground(Color.white);
         tbOrder.getColumnModel().getColumn(1).setCellRenderer(new ImageRenderer());
 
+//      Remove product in Order page
+        tbOrder.addMouseListener(new MouseAdapter() {
+            @Override
+            public void mouseClicked(MouseEvent e) {
+//                get click index Column in table
+                if (tbOrder.getRowCount() > 0) {
+                    int column = tbOrder.columnAtPoint(e.getPoint());
+                    if (column == 5) {
+                        int confirm = JOptionPane.showConfirmDialog(null, "Are you sure to remove?", "Warming", JOptionPane.YES_NO_OPTION);
+                        if (confirm == JOptionPane.YES_OPTION) {
+                            tableOrderModel.removeRow(tbOrder.getSelectedRow());
+                            add = -1;
+                            prepareInvoice();
+                        }
+                    }
+                }
+            }
+        });
 //        Limit value for Product Quantity
         SpinnerModel sm = new SpinnerNumberModel(0, 0, 1000, 1); //default value,lower bound,upper bound,increment by
         btnProductQuantity.setModel(sm);
@@ -393,6 +410,12 @@ public class ProductGUI extends JFrame {
                 txtSearchProduct.setText("");
             }
         });
+        tbOrder.addMouseListener(new MouseAdapter() {
+            @Override
+            public void mouseClicked(MouseEvent e) {
+                super.mouseClicked(e);
+            }
+        });
     }
 
     private void searchProOrder() {
@@ -495,20 +518,16 @@ public class ProductGUI extends JFrame {
                 }
                 for (Map.Entry<String, Integer> top5 : top5BestSelling) { // Print the top 5 bestselling
                     if (top5.getKey().equals(product.getId()) && product.isStatus()) {
-                        System.out.println("okla");
-                        //      Create layout Best Selling Panel
+//                      Create layout Best Selling Panel
                         JPanel panel = new JPanel(new GridBagLayout());
                         GridBagConstraints bagConstraints = new GridBagConstraints();
                         bagConstraints.fill = GridBagConstraints.HORIZONTAL;
                         bagConstraints.insets = new Insets(5, 5, 5, 5);
 
-//                  Create image of product
+//                      Create image of product
                         JPanel image = new JPanel();
                         Color bg = new Color(237, 237, 237);
                         image.setBackground(bg); // Set background
-
-//                        Border lineBorder = BorderFactory.createLineBorder(Color.black);
-//                        image.setBorder(lineBorder); // Set border for panel
 
                         Image img = new ImageIcon("src/Images/" + product.getImage()).getImage().getScaledInstance(130, 130, Image.SCALE_DEFAULT);
                         ImageIcon icon = new ImageIcon(img);
@@ -520,9 +539,9 @@ public class ProductGUI extends JFrame {
                         bagConstraints.gridy = 0;
                         panel.add(image, bagConstraints);
 
-//      Create name of product
+//                      Create name of product
                         String proName = product.getName();
-//        Custom proName
+//                      Custom proName
                         String[] arrName = proName.split(" ");
                         for (int j = 0; j < arrName.length; j++) {
                             if (j % 2 != 0) {
@@ -539,7 +558,7 @@ public class ProductGUI extends JFrame {
                         JLabel lbProName = new JLabel("<html>" + name + "</html>", SwingConstants.CENTER);
                         lbProName.setFont(new Font("Century Schoolbook", Font.BOLD, 13));
 
-//      Create quantity
+//                      Create quantity
                         JLabel lbItem = new JLabel();
                         lbItem.setFont(new Font("Century Schoolbook", Font.PLAIN, 14));
                         lbItem.setText(top5.getValue() + " items");
@@ -579,7 +598,7 @@ public class ProductGUI extends JFrame {
         scrollPaneBestSelling.setPreferredSize(new Dimension(2000, 1000));
     }
 
-    private void fillOrder(List<Product> productList){
+    private void fillOrder(List<Product> productList){ // Product in Order Page
         for (Product product : productList) {
             if (product.isStatus()) {
 //                  Create layout product Panel
@@ -680,7 +699,8 @@ public class ProductGUI extends JFrame {
                         if (spinner.getValue().equals(0)) {
                             JOptionPane.showMessageDialog(null, "Please choose quantity!", "Warning", JOptionPane.WARNING_MESSAGE);
                         }else {
-                            addToCart(lbProductName.getToolTipText(), product.getImage(), productName, (Integer) spinner.getValue(), productPrice * (Integer) spinner.getValue());
+                            String productID = lbProductName.getToolTipText();
+                            addToCart(productID, product.getImage(), productName, (Integer) spinner.getValue(), productPrice * (Integer) spinner.getValue());
                             spinner.setValue(0);
                             add = 1;
                         }
@@ -716,7 +736,6 @@ public class ProductGUI extends JFrame {
             clearOrder();
         }
     }
-
 
     //    Image for Product
     private void getProductImage() {
@@ -1063,7 +1082,6 @@ public class ProductGUI extends JFrame {
                 if (id.equals(productID)) {
 //                    get old value in Order table
                     int oldQuantity = (Integer) tbOrder.getValueAt(i, 3);
-//                    float oldPrice = (float) tbOrder.getValueAt(i, 4);
 
 //                    check new value is valid. If return value of method checkUpdateQuantityAndPrice = 0, error
                     int[] results = checkUpdateQuantityAndPrice(id, quantity, oldQuantity);
@@ -1086,7 +1104,7 @@ public class ProductGUI extends JFrame {
             tableOrderModel.addRow(new Object[]{productID, image, productName, quantity, price});
         }
 
-        prepareInvoice();
+        prepareInvoice();   //update total, subtotal, vat
     }
 
     private int[] checkUpdateQuantityAndPrice(String id, int quantity, int oldQuantity) {
@@ -1094,12 +1112,11 @@ public class ProductGUI extends JFrame {
 
         for (Product product : productController.getProductList()) {
             if (product.getId().equals(id)) {
-
-//                Check total quantity added is valid or not
+//              Check total quantity added is valid or not
                 int newQuantity = quantity + oldQuantity;
                 int tempQty = product.getQuantity() - newQuantity;
 
-//                If quantity < stock => temQty < 0
+//              If quantity < stock => temQty < 0
                 if (tempQty > 0 ) {
                     grid[0] = newQuantity;
                     grid[1] = product.getQuantity();
@@ -1113,6 +1130,7 @@ public class ProductGUI extends JFrame {
         return grid;
     }
 
+    private static final DecimalFormat df = new DecimalFormat("0.00");
 
     //    Display VAT, subtotal, total
     private void prepareInvoice() {
@@ -1123,9 +1141,10 @@ public class ProductGUI extends JFrame {
                 float price = (float) tbOrder.getValueAt(i, 4);
                 subtotal += price;
             }
-            txtVAT.setText(String.valueOf(subtotal * 0.1));
-            txtSubtotal.setText(String.valueOf(subtotal));
-            txtTotal.setText(String.valueOf(subtotal + subtotal * 0.1));
+            df.setRoundingMode(RoundingMode.UP);
+            txtVAT.setText(String.valueOf(df.format(subtotal * 0.1)));
+            txtSubtotal.setText(df.format(subtotal));
+            txtTotal.setText(String.valueOf(df.format(subtotal + subtotal * 0.1)));
         }else {
             txtVAT.setText("0");
             txtSubtotal.setText("0");
