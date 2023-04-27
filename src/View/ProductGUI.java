@@ -75,6 +75,7 @@ public class ProductGUI extends JFrame {
     private JLabel lbProductID;
     private JLabel lbHeader;
     private JLabel lbSaleTotalByMonth;
+    private JLabel errorProductImage;
     private JButton newButton;
     private JButton editButton;
     private JButton deleteButton;
@@ -123,8 +124,7 @@ public class ProductGUI extends JFrame {
                 exitProgram();
             }
         });
-        //        exit Program
-
+//        exit Program
         Timer timer = new Timer(delay, new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
@@ -965,28 +965,32 @@ public class ProductGUI extends JFrame {
         String regLetterAndWhiteSpace = "^[a-zA-Z ]*$";
         String regLetter = "^[a-zA-Z,. ]*$";
         String regFloat = "^[0-9.]*$";
-        String regNumber = "^[0-9]*$";
 
         if (action == "add") {
             if (!isDuplicate(txtProductID.getText())) {
                 temp = false;
+            }
+
+            if (txtProductImage.getText().equals("<Choosen file>")) {
+                temp = false;
+                errorProductImage.setText("Product images cannot be blank.");
             }
         }
 
 //        Product ID
         if (txtProductID.getText().equals("")) {
             errorProductID.setForeground(Color.red);
-            errorProductID.setText("This field cannot be empty");
+            errorProductID.setText("Product ID cannot be empty");
 
             temp = false;
         } else if (!txtProductID.getText().matches(regLetterAndNumber)) {
             errorProductID.setForeground(Color.red);
-            errorProductID.setText("This field cannot contain the characters.");
+            errorProductID.setText("Product ID cannot contain special characters.");
 
             temp = false;
         }else if (txtProductID.getText().length() < 3) {
             errorProductID.setForeground(Color.red);
-            errorProductID.setText("This field must contain more than 2 letters.");
+            errorProductID.setText("Product ID must contain more than 2 letters.");
 
             temp = false;
         }
@@ -994,17 +998,17 @@ public class ProductGUI extends JFrame {
 //        Product name
         if (txtProductName.getText().equals("")) {
             errorProductName.setForeground(Color.red);
-            errorProductName.setText("This field cannot be empty");
+            errorProductName.setText("Product name cannot be empty");
 
             temp = false;
         } else if (!txtProductName.getText().matches(regLetterAndWhiteSpace)) {
             errorProductName.setForeground(Color.red);
-            errorProductName.setText("This field cannot contain the characters or number.");
+            errorProductName.setText("Product name cannot contain numbers or special characters.");
 
             temp = false;
         }else if (txtProductName.getText().length() < 3) {
             errorProductName.setForeground(Color.red);
-            errorProductName.setText("This field must contain more than 2 letters.");
+            errorProductName.setText("Product name must contain more than 2 letters.");
 
             temp = false;
         }
@@ -1012,17 +1016,17 @@ public class ProductGUI extends JFrame {
 //        Product Ingredient
         if (txtProductIngredient.getText().equals("")) {
             errorProductIngredient.setForeground(Color.red);
-            errorProductIngredient.setText("This field cannot be empty");
+            errorProductIngredient.setText("Ingredient cannot be empty");
 
             temp = false;
         }else if (!txtProductIngredient.getText().matches(regLetter)) {
             errorProductIngredient.setForeground(Color.red);
-            errorProductIngredient.setText("This field cannot contain the characters or number.");
+            errorProductIngredient.setText("Ingredient cannot contain the characters or number.");
 
             temp = false;
         }else if (txtProductIngredient.getText().length() < 3) {
             errorProductIngredient.setForeground(Color.red);
-            errorProductIngredient.setText("This field must contain more than 2 letters.");
+            errorProductIngredient.setText("Ingredient must contain more than 4 letters.");
 
             temp = false;
         }
@@ -1030,12 +1034,12 @@ public class ProductGUI extends JFrame {
 //        Product Price
         if (txtProductPrice.getText().equals("")) {
             errorProductPrice.setForeground(Color.red);
-            errorProductPrice.setText("This field cannot be empty");
+            errorProductPrice.setText("Price cannot be empty");
 
             temp = false;
         }else if (!txtProductPrice.getText().matches(regFloat)) {
             errorProductPrice.setForeground(Color.red);
-            errorProductPrice.setText("This field must be the number greater than 0.");
+            errorProductPrice.setText("Price must be the number greater than 0.");
 
             temp = false;
         }

@@ -60,7 +60,6 @@ public class LoginGUI extends JFrame{
                 }else {
                     errorLogin.setText("Username or Password is invalid.");
                     errorLogin.setForeground(Color.red);
-                    txtUser.setText("");
                     txtPassword.setText("");
                 }
             }

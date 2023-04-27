@@ -297,9 +297,11 @@ public class AdminGUI extends JFrame{
     }
 
     private boolean isValidInput(String action) {
+        clearError();
         boolean temp = true;
+        String regLetterAndWhiteSpace = "^[a-zA-Z ]*$";
         String regLetterAndNumber = "\\w+";
-        String regLetter = "^[a-zA-Z,. ]*$";
+        String specialCharacter = "[!@#$%&*()_+=|<>?{}\\[\\]~-]";
 
         if (action == "add") {
             if (!isDuplicateID()) {
@@ -313,17 +315,17 @@ public class AdminGUI extends JFrame{
 
         if (txtUsername.getText().equals("")) {
             errorStaffIUsername.setForeground(Color.red);
-            errorStaffIUsername.setText("This field cannot be empty.");
+            errorStaffIUsername.setText("Username cannot be empty.");
 
             temp = false;
         }else if (!txtUsername.getText().matches(regLetterAndNumber)) {
             errorStaffIUsername.setForeground(Color.red);
-            errorStaffIUsername.setText("This field cannot contain the characters.");
+            errorStaffIUsername.setText("Username cannot contain special characters.");
 
             temp = false;
         }else if (txtUsername.getText().length() < 4) {
             errorStaffIUsername.setForeground(Color.red);
-            errorStaffIUsername.setText("This field must contain more than 3 letters.");
+            errorStaffIUsername.setText("Username must contain more than 3 letters.");
 
             temp = false;
         }
@@ -331,12 +333,12 @@ public class AdminGUI extends JFrame{
 //      Password
         if (txtPassword.getText().equals("")) {
             errorStaffPassword.setForeground(Color.red);
-            errorStaffPassword.setText("This field cannot be empty.");
+            errorStaffPassword.setText("Password cannot be empty.");
 
             temp = false;
         }else if (txtPassword.getText().length() < 6) {
             errorStaffPassword.setForeground(Color.red);
-            errorStaffPassword.setText("This field must contain more than 5 characters.");
+            errorStaffPassword.setText("Password must contain more than 5 characters.");
 
             temp = false;
         }
@@ -344,29 +346,27 @@ public class AdminGUI extends JFrame{
 //        Full name
         if (txtFullname.getText().equals("")) {
             errorStaffName.setForeground(Color.red);
-            errorStaffName.setText("This field cannot be empty.");
+            errorStaffName.setText("Full name cannot be empty.");
 
             temp = false;
-        }else if (txtFullname.getText().matches(regLetter)) {
+        }else if (!txtFullname.getText().matches(regLetterAndWhiteSpace)) {
             errorStaffName.setForeground(Color.red);
-            errorStaffName.setText("This field cannot contain the characters.");
+            errorStaffName.setText("Full name cannot contain numbers or special characters.");
 
             temp = false;
         }else if (txtFullname.getText().length() < 4) {
             errorStaffName.setForeground(Color.red);
-            errorStaffName.setText("This field must contain more than 3 characters.");
+            errorStaffName.setText("Full name must contain more than 3 characters.");
 
             temp = false;
         }
 
         if (txtPhone.getText().equals("")) {
             errorStaffPhone.setForeground(Color.red);
-            errorStaffPhone.setText("This field cannot be empty.");
+            errorStaffPhone.setText("Phone number cannot be empty.");
 
             temp = false;
-        }
-
-        if (txtPhone.getText().length() != 10) {
+        }else if (txtPhone.getText().length() != 10) {
             errorStaffPhone.setForeground(Color.red);
             errorStaffPhone.setText("Phone number must be 10 digits.");
 
@@ -382,17 +382,17 @@ public class AdminGUI extends JFrame{
 //      address
         if (txtAddressStaff.getText().equals("")) {
             errorStaffAddress.setForeground(Color.red);
-            errorStaffAddress.setText("This field cannot be empty.");
+            errorStaffAddress.setText("Address cannot be empty.");
 
             temp = false;
-        }else if (!txtAddressStaff.getText().matches(regLetter)) {
+        }else if (txtAddressStaff.getText().matches(specialCharacter)) {
             errorStaffAddress.setForeground(Color.red);
-            errorStaffAddress.setText("This field cannot contain the characters.");
+            errorStaffAddress.setText("Address cannot contain special characters.");
 
             temp = false;
         }else if (txtAddressStaff.getText().length() < 3) {
             errorStaffAddress.setForeground(Color.red);
-            errorStaffAddress.setText("This field must be more than 2 characters.");
+            errorStaffAddress.setText("Address must be more than 2 characters.");
 
             temp = false;
         }
@@ -450,9 +450,6 @@ public class AdminGUI extends JFrame{
         }else {
             return false;
         }
-//        Pattern pattern = Pattern.compile("^(\\(0\\d{1,3}\\)\\d{7})|(0\\d{9,10})$");
-//        Matcher matcher = pattern.matcher(phone);
-//        return !matcher.find();
     }
     //   Function: Clear Staff
     private void clearInput() {
