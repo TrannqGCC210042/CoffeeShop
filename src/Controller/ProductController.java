@@ -56,7 +56,9 @@ public class ProductController {
             }
 
             Object[] rowObj = new Object[] {
-                    product.getId(), product.getName(), product.getIngredient(), product.getPrice(), product.getQuantity(), status, product.getImage()
+                    product.getId(), product.getName(),
+                    product.getIngredient(), product.getPrice(),
+                    product.getQuantity(), status, product.getImage()
             };
 
             tableProductModel.addRow(rowObj);

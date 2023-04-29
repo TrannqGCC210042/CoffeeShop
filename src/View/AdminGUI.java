@@ -466,7 +466,7 @@ public class AdminGUI extends JFrame{
         txtAddressStaff.setText("");
         clearError();
 
-        txtSearchStaff.setText("");
+        txtSearchStaff.setText("Search by name");
         staffController.fillToTable();
     }
 

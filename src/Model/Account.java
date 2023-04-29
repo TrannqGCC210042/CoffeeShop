@@ -9,6 +9,17 @@ public class Account implements Serializable {
     private String username;
     private String password;
     private String address;
+    public Account() {
+    }
+
+    public Account(String fullName, boolean gender, String username, String password,String phone, String address) {
+        this.fullName = fullName;
+        this.phone = phone;
+        this.gender = gender;
+        this.username = username;
+        this.password = password;
+        this.address = address;
+    }
 
     public String getFullName() {
         return fullName;
@@ -58,15 +69,4 @@ public class Account implements Serializable {
         this.address = address;
     }
 
-    public Account() {
-    }
-
-    public Account(String fullName, boolean gender, String username, String password,String phone, String address) {
-        this.fullName = fullName;
-        this.phone = phone;
-        this.gender = gender;
-        this.username = username;
-        this.password = password;
-        this.address = address;
-    }
 }

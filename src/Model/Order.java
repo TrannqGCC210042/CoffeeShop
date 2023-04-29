@@ -8,13 +8,21 @@ import java.util.Date;
 import java.util.List;
 
 public class Order implements Serializable {
-    String pathOrder = "src\\File\\orders.dat";
-
     private int id;
     private float total;
     private Date date;
     private float vat;
     private int waitingCardNumber;
+
+    public Order() {
+    }
+    public Order(int id, float total, Date date, float vat, int waitingCardNumber) {
+        this.id = id;
+        this.total = total;
+        this.date = date;
+        this.vat = vat;
+        this.waitingCardNumber = waitingCardNumber;
+    }
 
     public int getId() {
         return id;
@@ -56,17 +64,4 @@ public class Order implements Serializable {
         this.waitingCardNumber = waitingCardNumber;
     }
 
-    public Order() {
-    }
-
-    public Order(int id, float total, Date date, float vat, int waitingCardNumber) {
-//        for (Order order: (List<Order>) XFile.readObject(pathOrder)) {
-//
-//        }
-        this.id = id;
-        this.total = total;
-        this.date = date;
-        this.vat = vat;
-        this.waitingCardNumber = waitingCardNumber;
-    }
 }

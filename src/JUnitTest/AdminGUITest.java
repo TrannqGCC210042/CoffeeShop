@@ -21,19 +21,21 @@ public class AdminGUITest {
     public void setUp(){
         staffList = (List<Account>) XFile.readObject(pathStaff);
     }
+
     @Test
     public void testAddStaff(){
         int s = staffList.size();
-        Account account = new Account("Nguyen Thi Kim Khanh", true, "khanhntk","0987654345", "khanh123", "Can Tho");
+        Account account = new Account("Nguyen Thi Kim Khanh", true,
+                "khanhntk","0987654345", "khanh123", "Can Tho");
         staffList.add(account);
         int expected = s + 1;
         Assertions.assertEquals(expected, staffList.size());
     }
-
     @Test
     public void testEditStaff(){
         Account a = null;
-        Account account = new Account("Nguyen Thi Kim Khanh", true, "khanhntk","khanh123", "0987654345", "Can Tho");
+        Account account = new Account("Nguyen Thi Kim Khanh", true,
+                "khanhntk","khanh123", "0987654345", "Can Tho");
         staffList.add(account);
         for (Account acc:staffList) {
             if (acc.getUsername().equals("khanhntk")) {
@@ -47,7 +49,8 @@ public class AdminGUITest {
     @Test
     public void testRemoveStaff(){
         Account a = null;
-        Account account = new Account("Nguyen Thi Kim Khanh", true, "khanhntk","khanh123", "0987654345", "Can Tho");
+        Account account = new Account("Nguyen Thi Kim Khanh", true,
+                "khanhntk","khanh123", "0987654345", "Can Tho");
         staffList.add(account);
         int s = staffList.size();
 

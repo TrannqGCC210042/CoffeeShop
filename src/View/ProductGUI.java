@@ -76,6 +76,7 @@ public class ProductGUI extends JFrame {
     private JLabel lbHeader;
     private JLabel lbSaleTotalByMonth;
     private JLabel errorProductImage;
+    private JButton btnMenuProOrder;
     private JButton newButton;
     private JButton editButton;
     private JButton deleteButton;
@@ -174,7 +175,6 @@ public class ProductGUI extends JFrame {
                         int confirm = JOptionPane.showConfirmDialog(null, "Are you sure to remove?", "Warming", JOptionPane.YES_NO_OPTION);
                         if (confirm == JOptionPane.YES_OPTION) {
                             tableOrderModel.removeRow(tbOrder.getSelectedRow());
-                            add = -1;
                             prepareInvoice();
                         }
                     }
@@ -332,12 +332,14 @@ public class ProductGUI extends JFrame {
         btnSaveOrder.addMouseListener(new MouseAdapter() {
             @Override
             public void mouseClicked(MouseEvent e) {
-                if (add < 0) {
+                if (add < 0 && tbOrder.getRowCount() <= 0) {
                     JOptionPane.showMessageDialog(null, "You cannot pay, please select the product!", "Warming", JOptionPane.INFORMATION_MESSAGE);
                 }else {
                     Object result = JOptionPane.showInputDialog(panelProductOrder, "Enter waiting number:", "Waiting number", JOptionPane.OK_CANCEL_OPTION);
                     if (result != null) {
                         payment(Integer.parseInt((String) result));
+                    }else {
+                        JOptionPane.showMessageDialog(null, "You cannot pay, please select waiting number!", "Warming", JOptionPane.INFORMATION_MESSAGE);
                     }
                 }
             }
@@ -346,7 +348,7 @@ public class ProductGUI extends JFrame {
         btnSearchProOrder.addMouseListener(new MouseAdapter() {
             @Override
             public void mouseClicked(MouseEvent e) {
-                if (!txtSearchProOrder.getText().equals("") && clickProOrder == 1 && !txtSearchProOrder.getText().equals(" ")) {
+                if (!txtSearchProOrder.getText().equals("") && !txtSearchProOrder.getText().equals("Search by name") && !txtSearchProOrder.getText().equals(" ")) {
                     searchProOrder();
                 }else {
                     txtSearchProOrder.setText("Search by name");
@@ -358,7 +360,6 @@ public class ProductGUI extends JFrame {
             @Override
             public void mouseClicked(MouseEvent e) {
                 txtSearchProOrder.setText("");
-                clickProOrder = 1;
             }
         });
 
@@ -408,18 +409,12 @@ public class ProductGUI extends JFrame {
 
             }
         });
-        txtSearchProduct.addMouseMotionListener(new MouseMotionAdapter() {
-        });
-        txtSearchProduct.addMouseListener(new MouseAdapter() {
-            @Override
-            public void mouseEntered(MouseEvent e) {
-                txtSearchProduct.setText("");
-            }
-        });
-        tbOrder.addMouseListener(new MouseAdapter() {
+        btnMenuProOrder.addMouseListener(new MouseAdapter() {
             @Override
             public void mouseClicked(MouseEvent e) {
-                super.mouseClicked(e);
+                txtSearchProOrder.setText("Search by name");
+                productPanel.removeAll();
+                fillOrder(productController.getProductList());
             }
         });
     }
@@ -854,12 +849,8 @@ public class ProductGUI extends JFrame {
             lbStatus.setVisible(true);
             rdSale.setVisible(true);
             rdSoldOut.setVisible(true);
-
             boolean status = true;
-
-            if (rdSoldOut.isSelected()) {
-                status = false;
-            }
+            if (rdSoldOut.isSelected()) {status = false;}
 
             if (isValidProduct("edit")) {
                 Product product = new Product(
@@ -875,21 +866,18 @@ public class ProductGUI extends JFrame {
 //              Edit List
                 productController.updateProductLst(product);
 
-//                Check if it is old image or not
-                for (Product p:productController.getProductList()) {
+                for (Product p:productController.getProductList()) { //  Check if it is old image or not
                     if (p.getImage().equals(txtProductImage.getToolTipText())) {
                         String newProductPath = "src\\Images\\" + txtProductImage.getToolTipText();
                         XFile.copyFile(originalPath, newProductPath); // Copy image file
                         break;
                     }
                 }
-
                 productController.fillToTable();
                 XFile.writeObject(filePath, productController.getProductList());
-
                 clearInput();
-                JOptionPane.showMessageDialog(null, "A product was updated successfully", "Success", JOptionPane.INFORMATION_MESSAGE);
-
+                JOptionPane.showMessageDialog(null, "A product was updated successfully",
+                        "Success", JOptionPane.INFORMATION_MESSAGE);
             }
         }
     }
@@ -919,7 +907,10 @@ public class ProductGUI extends JFrame {
 //        Clear form
             clearInput();
 
-            JOptionPane.showMessageDialog(null, "A product was added successfully", "Success", JOptionPane.INFORMATION_MESSAGE);
+            JOptionPane.showMessageDialog(null,
+                    "A product was added successfully",
+                    "Success",
+                    JOptionPane.INFORMATION_MESSAGE);
         }
     }
 
@@ -1131,8 +1122,9 @@ public class ProductGUI extends JFrame {
                     grid[0] = -1;
                 }
                 grid[1] = product.getQuantity();
+
+                break;
             }
-            break;
         }
 
         return grid;
