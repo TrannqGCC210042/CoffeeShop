@@ -77,6 +77,7 @@ public class ProductGUI extends JFrame {
     private JLabel lbSaleTotalByMonth;
     private JLabel errorProductImage;
     private JButton btnMenuProOrder;
+    private JButton btnLoadProduct;
     private JButton newButton;
     private JButton editButton;
     private JButton deleteButton;
@@ -415,6 +416,12 @@ public class ProductGUI extends JFrame {
                 txtSearchProOrder.setText("Search by name");
                 productPanel.removeAll();
                 fillOrder(productController.getProductList());
+            }
+        });
+        btnLoadProduct.addMouseListener(new MouseAdapter() {
+            @Override
+            public void mouseClicked(MouseEvent e) {
+                filltoTable();
             }
         });
     }
@@ -937,7 +944,11 @@ public class ProductGUI extends JFrame {
         txtProductImage.setText("<Choose file>");
         lbProductImage.setIcon(null);
         clearErrorProduct();
+    }
+
+    private void filltoTable() {
         productController.fillToTable();
+        txtSearchProduct.setText("Search by name");
     }
 
     private void clearErrorProduct() {
@@ -964,6 +975,7 @@ public class ProductGUI extends JFrame {
 
             if (txtProductImage.getText().equals("<Choosen file>")) {
                 temp = false;
+                errorProductImage.setForeground(Color.red);
                 errorProductImage.setText("Product images cannot be blank.");
             }
         }
