@@ -86,7 +86,7 @@ public class ProductGUI extends JFrame {
     String pathOrderDetail = "src\\File\\orderdetails.dat";
     DefaultTableModel tableOrderModel;
     int row = -1;
-    int add = -1;
+
     ProductController productController;
     OrderController orderController;
     OrderDetailsController orderDetailsController;
@@ -333,7 +333,7 @@ public class ProductGUI extends JFrame {
         btnSaveOrder.addMouseListener(new MouseAdapter() {
             @Override
             public void mouseClicked(MouseEvent e) {
-                if (add < 0 && tbOrder.getRowCount() <= 0) {
+                if (tbOrder.getRowCount() <= 0) {
                     JOptionPane.showMessageDialog(null, "You cannot pay, please select the product!", "Warming", JOptionPane.INFORMATION_MESSAGE);
                 }else {
                     Object result = JOptionPane.showInputDialog(panelProductOrder, "Enter waiting number:", "Waiting number", JOptionPane.OK_CANCEL_OPTION);
@@ -643,6 +643,7 @@ public class ProductGUI extends JFrame {
                     } else {
                         words[j] += " ";
                     }
+
                 }
                 StringBuilder productName = new StringBuilder();
                 for (int j = 0; j < words.length; j++) {
@@ -709,8 +710,7 @@ public class ProductGUI extends JFrame {
                             String productID = lbProductName.getToolTipText();
                             addToCart(productID, product.getImage(), productName, (Integer) spinner.getValue(), productPrice * (Integer) spinner.getValue());
                             spinner.setValue(0);
-                            add = 1;
-                        }
+                       }
                     }
                 });
 
