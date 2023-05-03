@@ -1,6 +1,7 @@
 package View;
 
 import Controller.StaffController;
+import JUnitTest.AdminGUITest;
 import Lib.XFile;
 import Model.Account;
 
@@ -293,6 +294,7 @@ public class AdminGUI extends JFrame{
             XFile.writeObject(filePath, staffController.getAccountList());
 //        Clear form
             clearInput();
+
         }
     }
 
@@ -418,10 +420,11 @@ public class AdminGUI extends JFrame{
             return false;
         }
     }
+
     public boolean isValidPhone(String action){
         String temp = null;
 
-        if (action.equals("add")) {
+        if (action.equals("add")) {  //  Add Staff
             for (Account account: staffController.getAccountList()) {
                 if (account.getPhone().equals(txtPhone.getText())) {
                     errorStaffPhone.setForeground(Color.red);
@@ -432,8 +435,7 @@ public class AdminGUI extends JFrame{
                 }
             }
         }else {
-//            Update Staff
-            row = tbStaff.getSelectedRow();
+            row = tbStaff.getSelectedRow();   //  Update Staff
             for (Account account: staffController.getAccountList()) {
                 if (!account.getPhone().equals(tbStaff.getValueAt(row,4)) && account.getPhone().equals(txtPhone.getText())) {
                     errorStaffPhone.setForeground(Color.red);
@@ -451,6 +453,7 @@ public class AdminGUI extends JFrame{
             return false;
         }
     }
+
     //   Function: Clear Staff
     private void clearInput() {
         row = -1;

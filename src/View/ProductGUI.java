@@ -968,8 +968,8 @@ public class ProductGUI extends JFrame {
         String regLetter = "^[a-zA-Z,. ]*$";
         String regFloat = "^[0-9.]*$";
 
-        if (action == "add") {
-            if (!isDuplicate(txtProductID.getText())) {
+        if (action.equals( "add")) {
+            if (!isDuplicate()) {
                 temp = false;
             }
 
@@ -1062,21 +1062,21 @@ public class ProductGUI extends JFrame {
         }
         return temp;
     }
-    public boolean isDuplicate(String id) {
+
+    public boolean isDuplicate() {
         String temp = null;
 
         for (Product product: productController.getProductList()) {
-            if (product.getId().equals(id)) {
+            if (product.getId().equals(txtProductID.getText())) {
                 errorProductID.setForeground(Color.red);
                 errorProductID.setText("Product ID already exists.");
 
-                temp = id;
+                temp = txtProductID.getText();
                 break;
             }
         }
 
-        if (temp == null) {
-            return true;
+        if (temp == null) {return true;
         }else {
             return false;
         }
