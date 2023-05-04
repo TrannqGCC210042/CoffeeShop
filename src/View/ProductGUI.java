@@ -824,6 +824,7 @@ public class ProductGUI extends JFrame {
                     JOptionPane.YES_NO_OPTION, JOptionPane.QUESTION_MESSAGE);
 
             if (answer == JOptionPane.YES_OPTION) {
+
                 productController.deleteProduct(txtProductID.getText());
                 productController.fillToTable();
                 XFile.writeObject(filePath, productController.getProductList());
